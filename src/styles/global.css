@@ -1,0 +1,191 @@
+@import "tailwindcss";
+@import "@fontsource/geist-sans/400.css";
+@import "@fontsource/geist-sans/500.css";
+@import "@fontsource/geist-sans/600.css";
+@import "@fontsource/geist-sans/700.css";
+@import "@fontsource/geist-mono/500.css";
+
+:root {
+  color-scheme: dark;
+  --background: #08060b;
+  --foreground: #fff8fb;
+  --muted: #cdb8c4;
+  --line: rgba(255, 248, 251, 0.14);
+  --accent: #ff2d9f;
+  --accent-2: #38e8ff;
+  --acid: #f6ff6a;
+  --panel: rgba(20, 13, 24, 0.72);
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--background);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background:
+    radial-gradient(circle at 86% 7%, rgba(255, 45, 159, 0.36), transparent 28rem),
+    radial-gradient(circle at 12% 18%, rgba(56, 232, 255, 0.2), transparent 24rem),
+    radial-gradient(circle at 54% 72%, rgba(246, 255, 106, 0.11), transparent 30rem),
+    linear-gradient(180deg, #08060b 0%, #160b18 44%, #08060b 100%);
+  color: var(--foreground);
+  font-family: "Geist Sans", system-ui, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.22;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    radial-gradient(circle, rgba(255, 255, 255, 0.2) 0 1px, transparent 1.5px);
+  background-position: 0 0, 0 0, 9px 13px;
+  background-size: 54px 54px, 54px 54px, 31px 31px;
+  mask-image: linear-gradient(to bottom, black, transparent 88%);
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: rgba(255, 45, 159, 0.38);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.mono {
+  font-family: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.shell {
+  width: min(100% - 2rem, 1280px);
+  margin-inline: auto;
+}
+
+.glass {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 24px 80px rgba(0, 0, 0, 0.32);
+  backdrop-filter: blur(18px);
+}
+
+.accent-link {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 45, 159, 0.42);
+  text-underline-offset: 0.25em;
+}
+
+.neon-text {
+  color: #fff7fb;
+  text-shadow:
+    0 0 0.18em rgba(255, 255, 255, 0.85),
+    0 0 0.42em rgba(255, 45, 159, 0.95),
+    0 0 1.2em rgba(255, 45, 159, 0.72),
+    0 0 2.2em rgba(255, 45, 159, 0.42);
+}
+
+.blue-glow {
+  text-shadow:
+    0 0 0.32em rgba(56, 232, 255, 0.96),
+    0 0 1.1em rgba(56, 232, 255, 0.52);
+}
+
+.bento-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 248, 251, 0.14);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.035)),
+    rgba(18, 9, 22, 0.78);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 28px 90px rgba(0, 0, 0, 0.34);
+  backdrop-filter: blur(18px);
+}
+
+.bento-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.16), transparent);
+  translate: -120% 0;
+  transition: translate 700ms ease;
+}
+
+.bento-card:hover::after {
+  translate: 120% 0;
+}
+
+.scan-bars {
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 45, 159, 0.92) 0 12%,
+      rgba(255, 157, 216, 0.86) 12% 20%,
+      rgba(234, 255, 250, 0.82) 20% 31%,
+      rgba(255, 45, 159, 0.64) 31% 44%,
+      rgba(16, 8, 22, 0.1) 44% 52%
+    );
+}
+
+.noise-mask {
+  mask-image: radial-gradient(circle at center, black, transparent 72%);
+}
+
+@keyframes pulse-neon {
+  0%, 100% {
+    opacity: 0.82;
+    filter: saturate(1);
+  }
+  50% {
+    opacity: 1;
+    filter: saturate(1.3);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .neon-pulse {
+    animation: pulse-neon 3.8s ease-in-out infinite;
+  }
+}
+
+.prose-vibe {
+  color: #d4d4d8;
+}
+
+.prose-vibe h2 {
+  margin-top: 2.75rem;
+  color: white;
+  font-size: clamp(1.65rem, 3vw, 2.4rem);
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.prose-vibe h3 {
+  margin-top: 1.75rem;
+  color: white;
+  font-size: 1.1rem;
+}
+
+.prose-vibe p,
+.prose-vibe li {
+  line-height: 1.75;
+}
+
+.prose-vibe a {
+  color: var(--accent);
+}

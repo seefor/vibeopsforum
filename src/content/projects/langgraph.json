@@ -1,0 +1,12 @@
+{
+  "title": "LangGraph",
+  "repoUrl": "https://github.com/langchain-ai/langgraph",
+  "owner": "langchain-ai",
+  "repo": "langgraph",
+  "description": "A framework for resilient language agents modeled as graphs, with cycles, persistence, and controllability.",
+  "author": "LangChain",
+  "tags": ["agents", "ao", "framework"],
+  "submittedAt": "2026-02-01T09:00:00Z",
+  "stars": 10300,
+  "language": "Python"
+}

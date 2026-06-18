@@ -1,0 +1,10 @@
+{
+  "title": "A2A Protocol Deep Dive",
+  "date": "2026-03-05T18:00:00Z",
+  "endDate": "2026-03-05T19:30:00Z",
+  "timezone": "America/New_York",
+  "location": "Zoom",
+  "url": "https://zoom.us/j/example",
+  "description": "A practical walkthrough of agent-to-agent architecture, message shape, discovery, delegation, and integration patterns.",
+  "tags": ["a2a", "workshop"]
+}

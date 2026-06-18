@@ -1,0 +1,12 @@
+{
+  "title": "Agent-to-Agent Protocol",
+  "repoUrl": "https://github.com/google/A2A",
+  "owner": "google",
+  "repo": "A2A",
+  "description": "An open protocol for communication and interoperability between agentic applications.",
+  "author": "Google",
+  "tags": ["a2a", "protocol", "agents"],
+  "submittedAt": "2026-01-20T14:00:00Z",
+  "stars": 8400,
+  "language": "Python"
+}

@@ -1,0 +1,43 @@
+---
+import { SITE } from "../lib/site";
+
+interface Props {
+  title: string;
+  description: string;
+  ogType?: string;
+  canonicalUrl?: string;
+  structuredData?: object;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  ogType = "website",
+  canonicalUrl = new URL(Astro.url.pathname, Astro.site).toString(),
+  structuredData,
+  noindex = false,
+} = Astro.props;
+
+const fullTitle = title.includes(SITE.name) ? title : `${title} | ${SITE.name}`;
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content={Astro.generator} />
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
+<link rel="canonical" href={canonicalUrl} />
+<meta property="og:type" content={ogType} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:site_name" content={SITE.name} />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+{structuredData && (
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+)}

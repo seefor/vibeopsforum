@@ -1,0 +1,48 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { formatDate, SITE } from "../lib/site";
+
+const events = (await getCollection("events")).sort(
+  (a, b) => a.data.date.getTime() - b.data.date.getTime(),
+);
+---
+
+<BaseLayout
+  title="AI Builder Events"
+  description="Upcoming VibeOps Forum events for vibecoding, agent operations, A2A protocol, and MCP tooling."
+>
+  <section class="shell py-20">
+    <div class="max-w-3xl">
+      <p class="mono text-xs uppercase tracking-[0.35em] text-teal-200">Events</p>
+      <h1 class="mt-5 text-5xl font-semibold tracking-[-0.06em] text-white md:text-6xl">Show the work in progress.</h1>
+      <p class="mt-5 text-lg leading-8 text-zinc-300">
+        Events are built around practical demos, office hours, and project feedback. Join the Slack to get calendar details and suggest sessions.
+      </p>
+    </div>
+
+    <div class="mt-12 divide-y divide-white/10 border-y border-white/10">
+      {events.map((event) => (
+        <article class="grid gap-5 py-7 md:grid-cols-[12rem_1fr_auto] md:items-start">
+          <div>
+            <time class="mono text-sm text-teal-200">{formatDate(event.data.date)}</time>
+            <p class="mt-2 text-xs uppercase tracking-[0.18em] text-zinc-500">{event.data.timezone}</p>
+          </div>
+          <div>
+            <h2 class="text-2xl font-semibold tracking-[-0.03em] text-white">{event.data.title}</h2>
+            <p class="mt-2 text-sm text-zinc-400">{event.data.location}</p>
+            <p class="mt-3 max-w-3xl text-sm leading-6 text-zinc-400">{event.data.description}</p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              {event.data.tags.map((tag) => <span class="rounded-full border border-white/10 px-3 py-1 text-xs text-zinc-400">{tag}</span>)}
+            </div>
+          </div>
+          {event.data.url ? (
+            <a class="rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white hover:border-teal-200/60" href={event.data.url}>Event link</a>
+          ) : (
+            <a class="rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white hover:border-teal-200/60" href={SITE.slackUrl}>Ask in Slack</a>
+          )}
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

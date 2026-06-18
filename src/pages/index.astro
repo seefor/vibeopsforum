@@ -1,0 +1,198 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { SITE, formatDate, topics } from "../lib/site";
+
+const events = (await getCollection("events"))
+  .sort((a, b) => a.data.date.getTime() - b.data.date.getTime())
+  .slice(0, 3);
+const projects = (await getCollection("projects"))
+  .sort((a, b) => b.data.submittedAt.getTime() - a.data.submittedAt.getTime())
+  .slice(0, 3);
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: SITE.name,
+  url: SITE.url,
+  description: SITE.description,
+};
+---
+
+<BaseLayout
+  title="AI Builder Community"
+  description="Join VibeOps Forum, a builder community for vibecoding, agent operations, A2A protocol work, and MCP tooling."
+  structuredData={structuredData}
+>
+  <section class="shell relative min-h-[calc(100dvh-4rem)] py-10 md:py-16">
+    <div class="absolute left-[9%] top-4 h-44 w-44 rounded-full bg-[#38e8ff]/20 blur-3xl"></div>
+    <div class="absolute right-[-4rem] top-10 h-72 w-72 rounded-full bg-[#ff2d9f]/32 blur-3xl"></div>
+
+    <div class="grid gap-4 lg:grid-cols-12 lg:auto-rows-[minmax(8.4rem,auto)]">
+      <div class="bento-card rounded-[1.6rem] p-6 md:p-8 lg:col-span-7 lg:row-span-3">
+        <div class="absolute inset-x-0 top-0 h-2 scan-bars opacity-90"></div>
+        <div class="relative z-10 flex h-full min-h-[31rem] flex-col justify-between gap-10">
+          <div>
+            <p class="mono inline-flex rounded-full border border-[#38e8ff]/40 bg-[#38e8ff]/10 px-3 py-1 text-[0.68rem] uppercase tracking-[0.32em] text-[#b9f7ff]">
+              VibeOps Lounge / live builder forum
+            </p>
+            <h1 class="mt-8 max-w-4xl text-balance text-5xl font-black uppercase leading-[0.83] tracking-[-0.075em] text-white md:text-8xl">
+              <span class="block">The operating</span>
+              <span class="neon-text neon-pulse block">room for</span>
+              <span class="block text-[#38e8ff] blue-glow">AI builders.</span>
+            </h1>
+          </div>
+          <div class="grid gap-5 md:grid-cols-[1fr_auto] md:items-end">
+            <p class="max-w-2xl text-lg leading-8 text-[#eadce5]">
+              VibeOps Forum is a Slack community for people building with coding agents, agent operations, A2A systems, and MCP tools. Bring working code, hard questions, and lessons from real projects.
+            </p>
+            <div class="flex flex-wrap gap-3 md:justify-end">
+              <a href={SITE.slackUrl} class="rounded-full bg-[#ff2d9f] px-6 py-3 text-sm font-bold text-white shadow-[0_0_36px_rgba(255,45,159,0.5)] transition hover:bg-[#ff5fba] active:translate-y-px">
+                Join Slack
+              </a>
+              <a href="/resources/" class="rounded-full border border-white/18 bg-white/6 px-6 py-3 text-sm font-bold text-white transition hover:border-[#38e8ff]/70 hover:text-[#b9f7ff] active:translate-y-px">
+                Field guide
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bento-card rounded-[1.6rem] p-5 lg:col-span-5 lg:row-span-2">
+        <div class="flex h-full min-h-[19rem] flex-col justify-between overflow-hidden rounded-[1.1rem] bg-[#08060b] p-5">
+          <div class="flex items-center justify-between">
+            <p class="mono text-[0.68rem] uppercase tracking-[0.28em] text-[#ff9bd2]">Join the</p>
+            <span class="h-3 w-3 rounded-full bg-[#f6ff6a] shadow-[0_0_22px_rgba(246,255,106,0.9)]"></span>
+          </div>
+          <div>
+            <p class="neon-text text-5xl font-black uppercase tracking-[-0.06em] md:text-7xl">VibeOps</p>
+            <p class="mt-2 flex items-center gap-3 text-2xl font-bold uppercase tracking-[0.34em] text-white">
+              <span class="grid h-8 w-8 place-items-center rounded-lg bg-white text-[#08060b] text-base">#</span>
+              Forum
+            </p>
+          </div>
+          <div class="grid grid-cols-[8rem_1fr] gap-5">
+            <div class="grid aspect-square grid-cols-5 grid-rows-5 gap-1 bg-white p-2 shadow-[0_0_28px_rgba(255,255,255,0.28)]">
+              {Array.from({ length: 25 }).map((_, index) => (
+                <span class:list={["bg-[#08060b]", [0, 1, 2, 4, 5, 7, 9, 10, 12, 13, 16, 18, 19, 20, 22, 24].includes(index) ? "opacity-100" : "opacity-0"]}></span>
+              ))}
+            </div>
+            <p class="self-end text-sm leading-6 text-[#cdb8c4]">
+              Scanline energy, working artifacts, and people comparing the messy details behind AI-native shipping.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bento-card rounded-[1.6rem] p-5 lg:col-span-2">
+        <p class="mono text-[0.65rem] uppercase tracking-[0.28em] text-[#38e8ff]">Tracks</p>
+        <p class="mt-4 text-6xl font-black tracking-[-0.08em] text-white">04</p>
+        <p class="mt-3 text-sm leading-6 text-[#cdb8c4]">Vibecoding, agent ops, A2A, and MCP.</p>
+      </div>
+
+      <div class="bento-card rounded-[1.6rem] p-5 lg:col-span-3">
+        <p class="mono text-[0.65rem] uppercase tracking-[0.28em] text-[#f6ff6a]">House rules</p>
+        <div class="mt-4 space-y-3">
+          {["Bring a build", "Compare patterns", "Ship with judgment"].map((item) => (
+            <p class="rounded-full border border-white/12 bg-white/7 px-4 py-2 text-sm font-semibold text-white">{item}</p>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="shell py-12">
+    <div class="mb-7 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+      <div>
+        <p class="mono text-xs uppercase tracking-[0.32em] text-[#38e8ff]">Builder tracks</p>
+        <h2 class="mt-3 max-w-3xl text-4xl font-black uppercase leading-[0.9] tracking-[-0.065em] text-white md:text-6xl">
+          Four rooms. One signal-rich loop.
+        </h2>
+      </div>
+      <p class="max-w-md text-sm leading-6 text-[#cdb8c4]">
+        A bento map of the work people are actually doing with agents, protocols, tools, and review habits.
+      </p>
+    </div>
+    <div class="grid gap-4 md:grid-cols-4">
+      {topics.map((topic, index) => (
+        <a
+          href={topic.href}
+          class:list={[
+            "bento-card group min-h-64 rounded-[1.4rem] p-5 transition hover:-translate-y-1",
+            index === 0 ? "md:col-span-2 bg-[#ff2d9f]/12" : "",
+            index === 3 ? "md:col-span-2 bg-[#38e8ff]/10" : "",
+          ]}
+        >
+          <div class="flex h-full flex-col justify-between gap-8">
+            <div>
+              <p class="mono text-[0.66rem] uppercase tracking-[0.22em] text-[#ff9bd2]">{topic.kicker}</p>
+              <h3 class="mt-4 text-3xl font-black uppercase tracking-[-0.055em] text-white group-hover:neon-text">{topic.label}</h3>
+            </div>
+            <p class="text-sm leading-6 text-[#cdb8c4]">{topic.description}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="shell grid gap-4 py-12 lg:grid-cols-[1.1fr_0.9fr]">
+    <div class="bento-card rounded-[1.6rem] p-6 md:p-7">
+      <div class="mb-6 flex items-end justify-between gap-4">
+        <div>
+          <p class="mono text-xs uppercase tracking-[0.32em] text-[#f6ff6a]">Calendar</p>
+          <h2 class="mt-3 text-4xl font-black uppercase tracking-[-0.055em] text-white">Upcoming sessions</h2>
+        </div>
+        <a class="accent-link text-sm font-bold" href="/events/">View all</a>
+      </div>
+      <div class="grid gap-3">
+        {events.map((event) => (
+          <article class="grid gap-4 rounded-2xl border border-white/10 bg-black/20 p-4 sm:grid-cols-[9rem_1fr]">
+            <time class="mono text-sm text-[#38e8ff]">{formatDate(event.data.date)}</time>
+            <div>
+              <h3 class="text-lg font-bold text-white">{event.data.title}</h3>
+              <p class="mt-1 text-sm text-[#ff9bd2]">{event.data.location} / {event.data.timezone}</p>
+              <p class="mt-2 text-sm leading-6 text-[#cdb8c4]">{event.data.description}</p>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+
+    <div class="bento-card rounded-[1.6rem] p-6 md:p-7">
+      <p class="mono text-xs uppercase tracking-[0.32em] text-[#38e8ff]">Project shelf</p>
+      <h2 class="mt-3 text-4xl font-black uppercase tracking-[-0.055em] text-white">Tools worth studying.</h2>
+      <div class="mt-6 space-y-3">
+        {projects.map((project) => (
+          <a href={project.data.repoUrl} class="block rounded-2xl border border-white/10 bg-white/6 p-4 transition hover:border-[#ff2d9f]/50 hover:bg-[#ff2d9f]/10" target="_blank" rel="noreferrer">
+            <div class="flex items-center justify-between gap-4">
+              <h3 class="font-bold text-white">{project.data.title}</h3>
+              {project.data.language && <span class="mono rounded-full bg-[#38e8ff]/12 px-2 py-1 text-[0.65rem] text-[#b9f7ff]">{project.data.language}</span>}
+            </div>
+            <p class="mt-2 text-sm leading-6 text-[#cdb8c4]">{project.data.description}</p>
+          </a>
+        ))}
+      </div>
+      <a class="mt-6 inline-block accent-link text-sm font-bold" href="/projects/">Browse projects</a>
+    </div>
+  </section>
+
+  <section class="shell py-16">
+    <div class="relative overflow-hidden rounded-[1.8rem] border border-[#ff2d9f]/35 bg-[#ff2d9f] p-7 text-white shadow-[0_0_80px_rgba(255,45,159,0.28)] md:p-10">
+      <div class="scan-bars absolute inset-x-0 bottom-0 h-7 opacity-65"></div>
+      <div class="relative z-10 grid gap-8 md:grid-cols-[1fr_auto] md:items-center">
+        <div>
+          <p class="mono text-xs uppercase tracking-[0.32em] text-[#f9d7e9]">Start here</p>
+          <h2 class="mt-3 max-w-3xl text-4xl font-black uppercase leading-[0.9] tracking-[-0.06em] md:text-6xl">
+            Join the Slack and bring a concrete build.
+          </h2>
+          <p class="mt-4 max-w-2xl text-base leading-7 text-[#ffe4f2]">
+            The best discussions start with an artifact: a repo, agent trace, prompt sequence, architecture sketch, or failed experiment.
+          </p>
+        </div>
+        <a href={SITE.slackUrl} class="rounded-full bg-[#08060b] px-7 py-3 text-sm font-bold text-white shadow-[0_0_30px_rgba(8,6,11,0.34)] transition hover:bg-[#211525] active:translate-y-px">
+          Join VibeOps
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

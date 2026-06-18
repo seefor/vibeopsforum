@@ -1,13 +1,33 @@
-# VIBEOPS Forum
+# VibeOps Forum
 
-Static launch page for the VIBEOPS Forum Slack invite.
+Astro site for VibeOps Forum, a builder community for AI-native development, agent operations, A2A protocol work, and MCP tooling.
 
-## Cloudflare Pages
+## Stack
 
-Use the GitHub integration in Cloudflare Pages with these settings:
+- Astro
+- Tailwind CSS
+- Content collections for events, projects, and resources
 
-- Framework preset: `None`
-- Build command: leave blank
-- Build output directory: `/`
+## Local Development
 
-The site is plain HTML/CSS and can be served directly from the repository root.
+```sh
+npm install
+npm run dev
+```
+
+The dev server runs at `http://localhost:4321/` by default.
+
+## Build
+
+```sh
+npm run build
+```
+
+The production site is emitted to `dist/`.
+
+## Content
+
+- Events live in `src/content/events/`
+- Projects live in `src/content/projects/`
+- Resource articles live in `src/content/resources/`
+- Shared site metadata lives in `src/lib/site.ts`

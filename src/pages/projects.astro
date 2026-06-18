@@ -1,0 +1,49 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { SITE } from "../lib/site";
+
+const projects = (await getCollection("projects")).sort(
+  (a, b) => b.data.submittedAt.getTime() - a.data.submittedAt.getTime(),
+);
+---
+
+<BaseLayout
+  title="AI Builder Projects"
+  description="Browse community projects and tools for vibecoding, agent operations, A2A protocol, and MCP integrations."
+>
+  <section class="shell py-20">
+    <div class="grid gap-8 md:grid-cols-[0.9fr_1.1fr]">
+      <div>
+        <p class="mono text-xs uppercase tracking-[0.35em] text-teal-200">Projects</p>
+        <h1 class="mt-5 text-5xl font-semibold tracking-[-0.06em] text-white md:text-6xl">A shelf for tools builders actually inspect.</h1>
+      </div>
+      <div class="max-w-2xl">
+        <p class="text-lg leading-8 text-zinc-300">
+          The first project shelf is static and reviewable. To submit a project, post it in Slack with the repo, what problem it solves, and what kind of feedback you want.
+        </p>
+        <a class="mt-5 inline-block accent-link text-sm" href={SITE.slackUrl}>Submit through Slack</a>
+      </div>
+    </div>
+
+    <div class="mt-14 grid gap-5 lg:grid-cols-2">
+      {projects.map((project) => (
+        <article class="glass rounded-2xl p-6">
+          <div class="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <p class="mono text-xs uppercase tracking-[0.22em] text-teal-200">{project.data.owner}/{project.data.repo}</p>
+              <h2 class="mt-3 text-2xl font-semibold tracking-[-0.04em] text-white">{project.data.title}</h2>
+            </div>
+            {project.data.stars && <span class="mono rounded-full border border-white/10 px-3 py-1 text-xs text-zinc-400">{project.data.stars.toLocaleString()} stars</span>}
+          </div>
+          <p class="mt-4 text-sm leading-6 text-zinc-400">{project.data.description}</p>
+          <div class="mt-5 flex flex-wrap gap-2">
+            {project.data.language && <span class="rounded-full bg-teal-300/10 px-3 py-1 text-xs text-teal-100">{project.data.language}</span>}
+            {project.data.tags.map((tag) => <span class="rounded-full border border-white/10 px-3 py-1 text-xs text-zinc-400">{tag}</span>)}
+          </div>
+          <a class="mt-6 inline-block accent-link text-sm" href={project.data.repoUrl} target="_blank" rel="noreferrer">Open repository</a>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

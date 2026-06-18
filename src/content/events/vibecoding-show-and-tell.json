@@ -1,0 +1,10 @@
+{
+  "title": "Vibecoding Show and Tell",
+  "date": "2026-03-22T16:00:00Z",
+  "endDate": "2026-03-22T17:00:00Z",
+  "timezone": "America/Los_Angeles",
+  "location": "Slack Huddle",
+  "url": "",
+  "description": "Demo a product, prototype, prompt workflow, review loop, or coding-agent setup and get feedback from other builders.",
+  "tags": ["vibecoding", "demo"]
+}
