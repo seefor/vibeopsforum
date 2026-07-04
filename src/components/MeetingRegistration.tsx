@@ -22,6 +22,7 @@ import {
 import { auth, db, firebaseConfigured } from "../lib/firebase";
 
 const adminEmails = new Set(["sif@sifbaksh.com", "ptcapo@gmail.com"]);
+const writeTimeoutMs = 12000;
 
 type HostEvent = {
   id: string;
@@ -129,6 +130,27 @@ function toCsv(registrations: Registration[]) {
     .join("\n");
 }
 
+function getErrorMessage(err: unknown, fallback: string) {
+  return err instanceof Error ? err.message : fallback;
+}
+
+async function withWriteTimeout<T>(write: Promise<T>) {
+  let timeoutId: number | undefined;
+
+  try {
+    return await Promise.race([
+      write,
+      new Promise<never>((_, reject) => {
+        timeoutId = window.setTimeout(() => {
+          reject(new Error("Firestore did not confirm the save. Check the live rules or network connection, then try again."));
+        }, writeTimeoutMs);
+      }),
+    ]);
+  } finally {
+    if (timeoutId) window.clearTimeout(timeoutId);
+  }
+}
+
 export default function MeetingRegistration() {
   const [user, setUser] = useState<User | null>(null);
   const [events, setEvents] = useState<HostEvent[]>([]);
@@ -162,14 +184,22 @@ export default function MeetingRegistration() {
 
     const stopAuth = onAuthStateChanged(auth, setUser);
     const eventsQuery = query(collection(db, "meetingEvents"), orderBy("startsAt", "asc"));
-    const stopEvents = onSnapshot(eventsQuery, (snapshot) => {
-      const nextEvents = snapshot.docs.map((eventDoc) => ({
-        id: eventDoc.id,
-        ...(eventDoc.data() as Omit<HostEvent, "id">),
-      }));
-      setEvents(nextEvents);
-      setSelectedEventId((current) => current || nextEvents[0]?.id || "");
-    });
+    const stopEvents = onSnapshot(
+      eventsQuery,
+      (snapshot) => {
+        const nextEvents = snapshot.docs.map((eventDoc) => ({
+          id: eventDoc.id,
+          ...(eventDoc.data() as Omit<HostEvent, "id">),
+        }));
+        setEvents(nextEvents);
+        setSelectedEventId((current) => current || nextEvents[0]?.id || "");
+      },
+      (err) => {
+        setError(getErrorMessage(err, "Could not load host events."));
+        setStatus("");
+        setIsCreatingEvent(false);
+      },
+    );
 
     return () => {
       stopAuth();
@@ -183,14 +213,20 @@ export default function MeetingRegistration() {
       return;
     }
 
-    return onSnapshot(collection(db, "meetingEvents", selectedEvent.id, "registrations"), (snapshot) => {
-      setRegistrations(
-        snapshot.docs.map((registrationDoc) => ({
-          id: registrationDoc.id,
-          ...(registrationDoc.data() as Omit<Registration, "id">),
-        })),
-      );
-    });
+    return onSnapshot(
+      collection(db, "meetingEvents", selectedEvent.id, "registrations"),
+      (snapshot) => {
+        setRegistrations(
+          snapshot.docs.map((registrationDoc) => ({
+            id: registrationDoc.id,
+            ...(registrationDoc.data() as Omit<Registration, "id">),
+          })),
+        );
+      },
+      (err) => {
+        setError(getErrorMessage(err, "Could not load registrations."));
+      },
+    );
   }, [selectedEvent, isAdmin]);
 
   async function signInHost() {
@@ -208,7 +244,7 @@ export default function MeetingRegistration() {
         setError("This Google account is not allowed to create host events.");
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Google sign-in failed.");
+      setError(getErrorMessage(err, "Google sign-in failed."));
     }
   }
 
@@ -262,12 +298,12 @@ export default function MeetingRegistration() {
         updatedAt: serverTimestamp(),
       });
 
-      await batch.commit();
+      await withWriteTimeout(batch.commit());
 
       setSelectedEventId(createdEvent.id);
       setStatus("Host event created.");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "The host event could not be created.");
+      setError(getErrorMessage(err, "The host event could not be created."));
       setStatus("");
     } finally {
       setIsCreatingEvent(false);
@@ -661,7 +697,9 @@ export default function MeetingRegistration() {
                     ))}
                   </ul>
                 ) : (
-                  <p className="text-sm leading-6 text-zinc-500">Sign in as an admin to view registrations.</p>
+                  <p className="text-sm leading-6 text-zinc-500">
+                    {isAdmin ? "No registrations yet." : "Sign in as an admin to view registrations."}
+                  </p>
                 )}
               </div>
             </div>
