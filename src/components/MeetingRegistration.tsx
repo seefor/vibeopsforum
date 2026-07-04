@@ -301,7 +301,7 @@ export default function MeetingRegistration() {
 
   return (
     <div className="grid gap-8 xl:grid-cols-[0.82fr_1.18fr]">
-      <section className="glass rounded-lg p-5 md:p-6">
+      <section id="host-console" className="glass scroll-mt-24 rounded-lg p-5 md:p-6">
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
             <p className="mono text-xs uppercase text-[#38e8ff]">Host console</p>
