@@ -16,6 +16,7 @@ export const SITE = {
 export const navItems = [
   { href: "/about/", label: "About" },
   { href: "/events/", label: "Events" },
+  { href: "/meeting-registration/", label: "Meetings" },
   { href: "/resources/", label: "Resources" },
   { href: "/projects/", label: "Projects" },
   { href: "/community/", label: "Community Content" },

@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { formatDate, SITE } from "../lib/site";
+import { formatDate } from "../lib/site";
 
 const events = (await getCollection("events")).sort(
   (a, b) => a.data.date.getTime() - b.data.date.getTime(),
@@ -39,7 +39,7 @@ const events = (await getCollection("events")).sort(
           {event.data.url ? (
             <a class="rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white hover:border-teal-200/60" href={event.data.url}>Event link</a>
           ) : (
-            <a class="rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white hover:border-teal-200/60" href={SITE.slackUrl}>Ask in Slack</a>
+            <a class="rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white hover:border-teal-200/60" href="/meeting-registration/">Register</a>
           )}
         </article>
       ))}

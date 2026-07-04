@@ -80,10 +80,10 @@ const typeStyles = {
 </BaseLayout>
 
 <script>
-  const tabs = document.querySelectorAll("[data-content-tab]");
-  const items = document.querySelectorAll(".content-item");
+  const tabs = document.querySelectorAll<HTMLElement>("[data-content-tab]");
+  const items = document.querySelectorAll<HTMLElement>(".content-item");
 
-  function setActiveTab(activeKey) {
+  function setActiveTab(activeKey: string) {
     tabs.forEach((tab) => {
       const isActive = tab.dataset.contentTab === activeKey;
       tab.setAttribute("aria-selected", String(isActive));
