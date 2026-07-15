@@ -1,0 +1,33 @@
+---
+import MeetingRegistration from "../components/MeetingRegistration";
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Meeting Registration"
+  description="A Google Meet registration gate for collecting attendee details and revealing the meeting link after signup."
+>
+  <section class="shell py-16 md:py-20">
+    <div class="grid gap-8 lg:grid-cols-[0.95fr_0.65fr] lg:items-end">
+      <div>
+        <p class="mono text-xs uppercase text-[#38e8ff]">Meet registration</p>
+        <h1 class="mt-5 max-w-4xl text-5xl font-semibold text-white md:text-6xl">
+          Gate the Meet link behind a real signup flow.
+        </h1>
+        <p class="mt-5 max-w-2xl text-lg leading-8 text-zinc-300">
+          Configure the meeting, collect the attendee details, reveal the Google Meet URL after registration, and export the list for follow-up.
+        </p>
+      </div>
+      <div class="rounded-lg border border-white/10 bg-white/6 p-5">
+        <p class="mono text-xs uppercase text-[#ff8ccd]">What this replaces</p>
+        <p class="mt-3 text-sm leading-6 text-zinc-300">
+          Instead of sending people through a separate form, this gives the meeting its own registration page with confirmation, calendar actions, and a host roster.
+        </p>
+      </div>
+    </div>
+
+    <div class="mt-10">
+      <MeetingRegistration client:load />
+    </div>
+  </section>
+</BaseLayout>

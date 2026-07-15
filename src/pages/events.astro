@@ -1,16 +1,68 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import PageHero from "../components/PageHero.astro";
-import { formatDate, formatEventTime, SITE } from "../lib/site";
-import { getAllEvents, getPastEvents, getUpcomingEvents, eventToJsonLd } from "../lib/events";
+import { formatDate, SITE } from "../lib/site";
+import { getUpcomingEvents, eventToJsonLd } from "../lib/events";
 
-const allEvents = await getAllEvents();
-const upcomingEvents = getUpcomingEvents(allEvents);
-const pastEvents = getPastEvents(allEvents);
+const events = (await getCollection("events")).sort(
+  (a, b) => a.data.date.getTime() - b.data.date.getTime(),
+);
 
-const structuredData = [
-  ...upcomingEvents.map((event) => eventToJsonLd(event, SITE.url)),
-];
+const structuredData = getUpcomingEvents(events).map((event) =>
+  eventToJsonLd(event, SITE.url),
+);
+
+function toUtcStamp(date: Date) {
+  return date.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+}
+
+function escapeCalendarText(value: string) {
+  return value.replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\n/g, "\\n");
+}
+
+function getEventUrl(url?: string) {
+  if (!url) return `${SITE.url}/meeting-registration/`;
+  return url.startsWith("http") ? url : new URL(url, SITE.url).toString();
+}
+
+function getEndDate(date: Date, endDate?: Date) {
+  return endDate ?? new Date(date.getTime() + 60 * 60 * 1000);
+}
+
+function getGoogleCalendarUrl(event: (typeof events)[number]) {
+  const eventUrl = getEventUrl(event.data.url);
+  const params = new URLSearchParams({
+    action: "TEMPLATE",
+    text: event.data.title,
+    dates: `${toUtcStamp(event.data.date)}/${toUtcStamp(getEndDate(event.data.date, event.data.endDate))}`,
+    details: `${event.data.description}\n\nRegister or join details: ${eventUrl}`,
+    location: event.data.location,
+  });
+
+  return `https://calendar.google.com/calendar/render?${params.toString()}`;
+}
+
+function getAppleCalendarUrl(event: (typeof events)[number]) {
+  const eventUrl = getEventUrl(event.data.url);
+  const body = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//VibeOps Forum//Events//EN",
+    "BEGIN:VEVENT",
+    `UID:${event.id}@vibeopsforum.com`,
+    `DTSTAMP:${toUtcStamp(new Date())}`,
+    `DTSTART:${toUtcStamp(event.data.date)}`,
+    `DTEND:${toUtcStamp(getEndDate(event.data.date, event.data.endDate))}`,
+    `SUMMARY:${escapeCalendarText(event.data.title)}`,
+    `DESCRIPTION:${escapeCalendarText(`${event.data.description}\n\nRegister or join details: ${eventUrl}`)}`,
+    `LOCATION:${escapeCalendarText(event.data.location)}`,
+    `URL:${escapeCalendarText(eventUrl)}`,
+    "END:VEVENT",
+    "END:VCALENDAR",
+  ].join("\r\n");
+
+  return `data:text/calendar;charset=utf-8,${encodeURIComponent(body)}`;
+}
 ---
 
 <BaseLayout
@@ -19,72 +71,40 @@ const structuredData = [
   structuredData={structuredData}
 >
   <section class="shell py-20">
-    <PageHero
-      kicker="Events"
-      title="Show the work in progress."
-      description="Events are built around practical demos, office hours, and project feedback. Join the Slack to get calendar details and suggest sessions."
-    />
-
-    <div class="mt-10 flex flex-wrap gap-4">
-      <a class="accent-link text-sm font-bold" href={SITE.eventSubmitUrl}>Suggest an event</a>
-      <a class="accent-link text-sm" href={SITE.slackUrl}>Ask in Slack</a>
-    </div>
-
-    <div class="mt-12">
-      <h2 class="mono text-xs uppercase tracking-[0.35em] text-[#f6ff6a]">Upcoming</h2>
-      {upcomingEvents.length > 0 ? (
-        <div class="mt-6 divide-y divide-white/10 border-y border-white/10">
-          {upcomingEvents.map((event) => (
-            <article class="grid gap-5 py-7 md:grid-cols-[12rem_1fr_auto] md:items-start">
-              <div>
-                <time class="mono text-sm text-[#38e8ff]" datetime={event.data.date.toISOString()}>
-                  {formatDate(event.data.date)}
-                </time>
-                <p class="mt-2 text-xs text-[#cdb8c4]">{formatEventTime(event.data.date, event.data.timezone)}</p>
-              </div>
-              <div>
-                <h3 class="text-2xl font-bold tracking-[-0.03em] text-white">{event.data.title}</h3>
-                <p class="mt-2 text-sm text-[#cdb8c4]">{event.data.location}</p>
-                <p class="mt-3 max-w-3xl text-sm leading-6 text-[#cdb8c4]">{event.data.description}</p>
-                <div class="mt-4 flex flex-wrap gap-2">
-                  {event.data.tags.map((tag) => <span class="rounded-full border border-white/10 px-3 py-1 text-xs text-zinc-400">{tag}</span>)}
-                </div>
-              </div>
-              {event.data.url ? (
-                <a class="focus-ring rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white hover:border-[#38e8ff]/60" href={event.data.url} target="_blank" rel="noopener noreferrer">Event link</a>
-              ) : (
-                <a class="focus-ring rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white hover:border-[#38e8ff]/60" href={SITE.slackUrl}>Ask in Slack</a>
-              )}
-            </article>
-          ))}
-        </div>
-      ) : (
-        <div class="mt-6 rounded-2xl border border-dashed border-white/15 bg-black/20 p-6">
-          <p class="text-sm leading-6 text-[#cdb8c4]">No upcoming events scheduled. Suggest a session through GitHub or ask in Slack.</p>
-        </div>
-      )}
-    </div>
-
-    {pastEvents.length > 0 && (
-      <div class="mt-16">
-        <h2 class="mono text-xs uppercase tracking-[0.35em] text-[#38e8ff]">Past sessions</h2>
-        <div class="mt-6 divide-y divide-white/10 border-y border-white/10 opacity-80">
-          {pastEvents.map((event) => (
-            <article class="grid gap-5 py-7 md:grid-cols-[12rem_1fr] md:items-start">
-              <div>
-                <time class="mono text-sm text-[#38e8ff]" datetime={event.data.date.toISOString()}>
-                  {formatDate(event.data.date)}
-                </time>
-              </div>
-              <div>
-                <h3 class="text-xl font-semibold tracking-[-0.03em] text-white">{event.data.title}</h3>
-                <p class="mt-2 text-sm text-[#cdb8c4]">{event.data.location}</p>
-                <p class="mt-3 max-w-3xl text-sm leading-6 text-[#cdb8c4]">{event.data.description}</p>
-              </div>
-            </article>
-          ))}
-        </div>
+    <div class="max-w-3xl">
+      <p class="mono text-xs uppercase tracking-[0.35em] text-teal-200">Events</p>
+      <h1 class="mt-5 text-5xl font-semibold tracking-[-0.06em] text-white md:text-6xl">Show the work in progress.</h1>
+      <p class="mt-5 text-lg leading-8 text-zinc-300">
+        Events are built around practical demos, office hours, and project feedback. Register for Google Meet sessions, add them to your calendar, or create a hosted meeting from the admin area.
+      </p>
+      <div class="mt-7 flex flex-wrap gap-3">
+        <a class="rounded-full bg-[#ff2d9f] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_0_34px_rgba(255,45,159,0.28)] transition hover:bg-[#ff5fba]" href="/meeting-registration/">Register for meetings</a>
+        <a class="rounded-full border border-white/15 px-5 py-2.5 text-sm font-semibold text-white transition hover:border-[#38e8ff]" href="/meeting-registration/#host-console">Meetings admin</a>
       </div>
-    )}
+    </div>
+
+    <div class="mt-12 divide-y divide-white/10 border-y border-white/10">
+      {events.map((event) => (
+        <article class="grid gap-5 py-7 md:grid-cols-[12rem_1fr_12rem] md:items-start">
+          <div>
+            <time class="mono text-sm text-teal-200" datetime={event.data.date.toISOString()}>{formatDate(event.data.date)}</time>
+            <p class="mt-2 text-xs uppercase tracking-[0.18em] text-zinc-500">{event.data.timezone}</p>
+          </div>
+          <div>
+            <h2 class="text-2xl font-semibold tracking-[-0.03em] text-white">{event.data.title}</h2>
+            <p class="mt-2 text-sm text-zinc-400">{event.data.location}</p>
+            <p class="mt-3 max-w-3xl text-sm leading-6 text-zinc-400">{event.data.description}</p>
+            <div class="mt-4 flex flex-wrap gap-2">
+              {event.data.tags.map((tag) => <span class="rounded-full border border-white/10 px-3 py-1 text-xs text-zinc-400">{tag}</span>)}
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-2 md:justify-end">
+            <a class="rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white hover:border-teal-200/60" href={event.data.url || "/meeting-registration/"}>Register</a>
+            <a class="rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white hover:border-[#38e8ff]" href={getGoogleCalendarUrl(event)} target="_blank" rel="noreferrer">Google Cal</a>
+            <a class="rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white hover:border-[#f6ff6a]" href={getAppleCalendarUrl(event)} download={`${event.id}.ics`}>Apple Cal</a>
+          </div>
+        </article>
+      ))}
+    </div>
   </section>
 </BaseLayout>
