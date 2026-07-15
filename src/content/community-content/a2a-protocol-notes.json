@@ -1,9 +1,0 @@
-{
-  "title": "Agent-to-Agent Protocol Notes",
-  "description": "Implementation write-ups and field reports on multi-agent messaging, discovery, and delegation patterns.",
-  "url": "https://developers.googleblog.com/en/a2a-a-new-protocol-for-agent-interoperability/",
-  "type": "blog",
-  "creator": "VibeOps community",
-  "tags": ["a2a", "protocol", "agents"],
-  "submittedAt": "2026-02-08T11:00:00Z"
-}

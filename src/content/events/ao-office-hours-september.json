@@ -1,9 +1,0 @@
-{
-  "title": "Agent Operations Office Hours",
-  "date": "2026-09-03T19:00:00Z",
-  "endDate": "2026-09-03T20:00:00Z",
-  "timezone": "America/New_York",
-  "location": "Google Meet",
-  "description": "Bring questions about running agents in product and engineering workflows: admission, review, logging, recovery, and human handoff.",
-  "tags": ["agent-ops", "office-hours"]
-}
