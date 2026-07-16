@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
 import { SITE } from "../lib/site";
 ---
 
@@ -7,14 +8,13 @@ import { SITE } from "../lib/site";
   title="About"
   description="Learn what VibeOps Forum is and how the community works for AI builders."
 >
-  <section class="shell grid gap-10 py-20 md:grid-cols-[0.9fr_1.1fr]">
-    <div>
-      <p class="mono text-xs uppercase tracking-[0.35em] text-teal-200">About</p>
-      <h1 class="mt-5 text-balance text-5xl font-semibold tracking-[-0.06em] text-white md:text-6xl">
-        A forum for the people operating the next software stack.
-      </h1>
-    </div>
-    <div class="prose-vibe max-w-3xl">
+  <section class="shell py-20">
+    <PageHero
+      kicker="About"
+      title="A forum for the people operating the next software stack."
+      columns={false}
+    />
+    <div class="prose-vibe mt-10 max-w-3xl">
       <p>
         VibeOps Forum is a Slack community for builders working with AI coding agents, agent operations, A2A protocol ideas, and MCP tooling. The community is for people who want to compare real workflows, not only read announcements.
       </p>
@@ -30,7 +30,7 @@ import { SITE } from "../lib/site";
         Join if you are building products with coding agents, designing agent workflows, evaluating A2A patterns, creating MCP integrations, or trying to understand how AI-assisted software work changes engineering practice.
       </p>
       <p>
-        <a class="accent-link" href={SITE.slackUrl}>Join the VibeOps Slack</a> and introduce yourself with what you are building.
+        <a class="accent-link" href={SITE.joinUrl}>Join the VibeOps Slack</a> and introduce yourself with what you are building.
       </p>
     </div>
   </section>

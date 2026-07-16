@@ -1,0 +1,15 @@
+{
+  "title": "nsaf",
+  "repoUrl": "https://github.com/seanerama/nsaf",
+  "owner": "seanerama",
+  "repo": "nsaf",
+  "description": "An agent framework from the community.",
+  "author": "Sean Mahoney",
+  "origin": "member",
+  "category": "frameworks",
+  "tags": [
+    "frameworks",
+    "agents"
+  ],
+  "submittedAt": "2026-01-27T10:00:00.000Z"
+}

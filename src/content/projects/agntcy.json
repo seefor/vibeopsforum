@@ -1,0 +1,17 @@
+{
+  "title": "agntcy",
+  "repoUrl": "https://github.com/agntcy/agntcy",
+  "owner": "agntcy",
+  "repo": "agntcy",
+  "description": "An agent interoperability effort from Cisco Outshift.",
+  "author": "Cisco Outshift",
+  "origin": "tool",
+  "category": "frameworks",
+  "tags": [
+    "frameworks",
+    "interop",
+    "cisco"
+  ],
+  "submittedAt": "2026-03-07T10:00:00.000Z",
+  "sharedBy": "Akshay Balaganur"
+}

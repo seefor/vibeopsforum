@@ -1,5 +1,7 @@
 ---
-import { SITE, navItems } from "../lib/site";
+import { SITE, navItems, isActiveNav } from "../lib/site";
+
+const currentPath = Astro.url.pathname;
 ---
 
 <header class="sticky top-0 z-40 border-b border-white/10 bg-[#08060b]/78 backdrop-blur-xl">
@@ -11,16 +13,95 @@ import { SITE, navItems } from "../lib/site";
         <span class="mono block text-[0.66rem] uppercase tracking-[0.22em] text-[#38e8ff]">Forum</span>
       </span>
     </a>
+
     <nav class="hidden items-center gap-7 text-sm font-medium text-zinc-300 md:flex" aria-label="Main navigation">
       {navItems.map((item) => (
-        <a class="transition hover:text-white" href={item.href}>{item.label}</a>
+        <a
+          class:list={[
+            "transition hover:text-white",
+            isActiveNav(item.href, currentPath) && "text-white underline decoration-[#ff2d9f]/70 underline-offset-4",
+          ]}
+          href={item.href}
+          aria-current={isActiveNav(item.href, currentPath) ? "page" : undefined}
+        >
+          {item.label}
+        </a>
       ))}
     </nav>
-    <a
-      href={SITE.slackUrl}
-      class="rounded-full bg-[#ff2d9f] px-4 py-2 text-sm font-semibold text-white shadow-[0_0_34px_rgba(255,45,159,0.38)] transition hover:bg-[#ff5fba] active:translate-y-px"
-    >
-      Join Slack
-    </a>
+
+    <div class="flex items-center gap-3">
+      <button
+        type="button"
+        id="mobile-menu-button"
+        class="focus-ring inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/12 text-white md:hidden"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Open menu"
+      >
+        <svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round" />
+        </svg>
+      </button>
+      <a
+        href={SITE.joinUrl}
+        class="focus-ring hidden rounded-full bg-[#ff2d9f] px-4 py-2 text-sm font-semibold text-white shadow-[0_0_34px_rgba(255,45,159,0.38)] transition hover:bg-[#ff5fba] active:translate-y-px sm:inline-block"
+      >
+        Join Slack
+      </a>
+    </div>
+  </div>
+
+  <div
+    id="mobile-menu"
+    class="hidden border-t border-white/10 bg-[#08060b]/95 px-4 py-4 md:hidden"
+    hidden
+  >
+    <nav class="flex flex-col gap-1" aria-label="Mobile navigation">
+      {navItems.map((item) => (
+        <a
+          class:list={[
+            "focus-ring rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-300 transition hover:bg-white/6 hover:text-white",
+            isActiveNav(item.href, currentPath) && "bg-[#ff2d9f]/12 text-white",
+          ]}
+          href={item.href}
+          aria-current={isActiveNav(item.href, currentPath) ? "page" : undefined}
+        >
+          {item.label}
+        </a>
+      ))}
+      <a
+        href={SITE.joinUrl}
+        class="focus-ring mt-2 rounded-full bg-[#ff2d9f] px-4 py-2.5 text-center text-sm font-semibold text-white"
+      >
+        Join Slack
+      </a>
+    </nav>
   </div>
 </header>
+
+<script>
+  const button = document.getElementById("mobile-menu-button");
+  const menu = document.getElementById("mobile-menu");
+
+  if (button && menu) {
+    const setOpen = (open: boolean) => {
+      button.setAttribute("aria-expanded", String(open));
+      button.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+      menu.hidden = !open;
+      menu.classList.toggle("hidden", !open);
+    };
+
+    button.addEventListener("click", () => {
+      const isOpen = button.getAttribute("aria-expanded") === "true";
+      setOpen(!isOpen);
+    });
+
+    menu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => setOpen(false));
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") setOpen(false);
+    });
+  }
+</script>

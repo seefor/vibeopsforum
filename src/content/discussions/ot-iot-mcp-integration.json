@@ -1,0 +1,12 @@
+{
+  "title": "OT / IoT / IoMT MCP integration",
+  "summary": "NetClaw extending into medical devices, shop-floor PLCs, and physical-security sensors through MCP — pushing agent operations past the traditional network into operational and IoT domains.",
+  "sourceUrl": "https://github.com/automateyournetwork/netclaw/pull/71",
+  "sourceLabel": "NetClaw PR #71",
+  "tags": [
+    "netclaw",
+    "mcp",
+    "iot"
+  ],
+  "submittedAt": "2026-04-18T10:00:00.000Z"
+}

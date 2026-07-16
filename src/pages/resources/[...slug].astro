@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import { SITE } from "../../lib/site";
 
 export async function getStaticPaths() {
   const resources = await getCollection("resources");
@@ -12,14 +13,40 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await render(entry);
+
+const articleStructuredData = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: entry.data.title,
+  description: entry.data.description,
+  url: new URL(`/resources/${entry.id}/`, SITE.url).toString(),
+  publisher: {
+    "@type": "Organization",
+    name: SITE.name,
+    url: SITE.url,
+  },
+  ...(entry.data.updatedDate && {
+    dateModified: entry.data.updatedDate.toISOString(),
+  }),
+};
 ---
 
-<BaseLayout title={entry.data.title} description={entry.data.description} ogType="article">
+<BaseLayout
+  title={entry.data.title}
+  description={entry.data.description}
+  ogType="article"
+  structuredData={articleStructuredData}
+>
   <article class="shell grid gap-10 py-20 md:grid-cols-[0.7fr_1.3fr]">
     <aside>
       <a class="accent-link text-sm" href="/resources/">Back to resources</a>
-      <p class="mono mt-8 text-xs uppercase tracking-[0.35em] text-teal-200">{entry.data.topic}</p>
-      <h1 class="mt-5 text-5xl font-semibold tracking-[-0.06em] text-white md:text-6xl">{entry.data.title}</h1>
+      <p class="mono mt-8 text-xs uppercase tracking-[0.35em] text-[#38e8ff]">{entry.data.topic}</p>
+      <h1 class="mt-5 text-5xl font-black uppercase leading-[0.92] tracking-[-0.06em] text-white md:text-6xl">{entry.data.title}</h1>
+      {entry.data.updatedDate && (
+        <p class="mt-4 text-sm text-[#cdb8c4]">
+          Updated {entry.data.updatedDate.toLocaleDateString("en", { month: "short", day: "numeric", year: "numeric" })}
+        </p>
+      )}
     </aside>
     <div class="prose-vibe max-w-3xl text-lg">
       <Content />

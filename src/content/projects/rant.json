@@ -1,0 +1,12 @@
+{
+  "title": "RANT (Gather)",
+  "repoUrl": "https://github.com/rantlabs/RANT",
+  "owner": "rantlabs",
+  "repo": "RANT",
+  "description": "\"Gather\" — a digital-twin extraction tool exposed as an MCP server.",
+  "author": "rgupta",
+  "origin": "member",
+  "category": "mcp",
+  "tags": ["mcp", "digital-twin", "extraction"],
+  "submittedAt": "2026-04-02T12:00:00Z"
+}

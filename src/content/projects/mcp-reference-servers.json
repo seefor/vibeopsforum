@@ -5,6 +5,8 @@
   "repo": "servers",
   "description": "Reference implementations of Model Context Protocol servers for filesystems, GitHub, Slack, databases, and more.",
   "author": "Anthropic",
+  "origin": "tool",
+  "category": "mcp",
   "tags": ["mcp", "reference", "tooling"],
   "submittedAt": "2026-01-15T10:00:00Z",
   "stars": 15200,

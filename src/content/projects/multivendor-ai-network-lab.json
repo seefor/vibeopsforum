@@ -1,0 +1,16 @@
+{
+  "title": "multivendor-ai-network-lab",
+  "repoUrl": "https://github.com/gesh75/multivendor-ai-network-lab",
+  "owner": "gesh75",
+  "repo": "multivendor-ai-network-lab",
+  "description": "A vendor-agnostic take on NetClaw patterns across Juniper, Arista, and FRR. MIT licensed.",
+  "author": "Georgi Gaydarov",
+  "origin": "member",
+  "category": "netclaw",
+  "tags": [
+    "netclaw",
+    "multivendor",
+    "networking"
+  ],
+  "submittedAt": "2026-01-12T10:00:00.000Z"
+}

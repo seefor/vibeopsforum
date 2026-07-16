@@ -9,10 +9,12 @@ interface Props {
   title: string;
   description: string;
   ogType?: string;
-  structuredData?: object;
+  ogImage?: string;
+  structuredData?: object | object[];
+  noindex?: boolean;
 }
 
-const { title, description, ogType, structuredData } = Astro.props;
+const { title, description, ogType, ogImage, structuredData, noindex } = Astro.props;
 const defaultStructuredData = {
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -29,12 +31,15 @@ const defaultStructuredData = {
       title={title}
       description={description}
       ogType={ogType}
+      ogImage={ogImage}
       structuredData={structuredData ?? defaultStructuredData}
+      noindex={noindex}
     />
   </head>
   <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
     <Header />
-    <main>
+    <main id="main-content">
       <slot />
     </main>
     <Footer />

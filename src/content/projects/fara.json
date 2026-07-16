@@ -1,0 +1,16 @@
+{
+  "title": "fara",
+  "repoUrl": "https://github.com/microsoft/fara",
+  "owner": "microsoft",
+  "repo": "fara",
+  "description": "A model/research release from Microsoft.",
+  "author": "Microsoft",
+  "origin": "tool",
+  "category": "research",
+  "tags": [
+    "research",
+    "microsoft"
+  ],
+  "submittedAt": "2026-04-03T10:00:00.000Z",
+  "sharedBy": "John Capobianco"
+}

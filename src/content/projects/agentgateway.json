@@ -1,0 +1,16 @@
+{
+  "title": "agentgateway",
+  "repoUrl": "https://github.com/agentgateway/agentgateway",
+  "owner": "agentgateway",
+  "repo": "agentgateway",
+  "description": "A gateway for agent traffic; the project is actively looking for GitHub stars.",
+  "author": "Sebastian Maniak",
+  "origin": "member",
+  "category": "frameworks",
+  "tags": [
+    "frameworks",
+    "gateway",
+    "agents"
+  ],
+  "submittedAt": "2026-01-18T10:00:00.000Z"
+}

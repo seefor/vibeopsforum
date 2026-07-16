@@ -1,0 +1,16 @@
+{
+  "title": "netclaw-demo",
+  "repoUrl": "https://github.com/byrn-baker/netclaw-demo",
+  "owner": "byrn-baker",
+  "repo": "netclaw-demo",
+  "description": "A NetClaw demo repo used in a podcast walkthrough.",
+  "author": "Byrn Baker",
+  "origin": "member",
+  "category": "netclaw",
+  "tags": [
+    "netclaw",
+    "demo",
+    "networking"
+  ],
+  "submittedAt": "2026-01-06T10:00:00.000Z"
+}

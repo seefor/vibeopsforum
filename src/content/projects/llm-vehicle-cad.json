@@ -1,0 +1,17 @@
+{
+  "title": "llm-vehicle-cad",
+  "repoUrl": "https://github.com/kutaydemir07/llm-vehicle-cad",
+  "owner": "kutaydemir07",
+  "repo": "llm-vehicle-cad",
+  "description": "LLM-driven CAD generation for vehicles.",
+  "author": "kutaydemir07",
+  "origin": "tool",
+  "category": "research",
+  "tags": [
+    "research",
+    "cad",
+    "llm"
+  ],
+  "submittedAt": "2026-04-06T10:00:00.000Z",
+  "sharedBy": "James Wise"
+}

@@ -5,6 +5,8 @@
   "repo": "goose",
   "description": "An open-source AI agent that installs, executes, debugs, and deploys with MCP tool support.",
   "author": "Block",
+  "origin": "tool",
+  "category": "frameworks",
   "tags": ["vibecoding", "mcp", "agent"],
   "submittedAt": "2026-02-05T16:00:00Z",
   "stars": 4700,

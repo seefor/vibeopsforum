@@ -1,0 +1,16 @@
+{
+  "title": "agent-lsp",
+  "repoUrl": "https://github.com/blackwell-systems/agent-lsp",
+  "owner": "blackwell-systems",
+  "repo": "agent-lsp",
+  "description": "LSP-powered workflows for coding agents; already surfacing in AI search results.",
+  "author": "Dayna",
+  "origin": "member",
+  "category": "frameworks",
+  "tags": [
+    "frameworks",
+    "lsp",
+    "agents"
+  ],
+  "submittedAt": "2026-01-24T10:00:00.000Z"
+}

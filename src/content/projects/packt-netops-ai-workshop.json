@@ -1,0 +1,16 @@
+{
+  "title": "packt-netops-ai-workshop",
+  "repoUrl": "https://github.com/wcollins/packt-netops-ai-workshop",
+  "owner": "wcollins",
+  "repo": "packt-netops-ai-workshop",
+  "description": "A 3-lab workshop covering topology, an MCP layer, and observability.",
+  "author": "William Collins",
+  "origin": "member",
+  "category": "networking",
+  "tags": [
+    "networking",
+    "workshop",
+    "mcp"
+  ],
+  "submittedAt": "2026-02-05T10:00:00.000Z"
+}

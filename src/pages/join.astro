@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
 import { SITE } from "../lib/site";
 ---
 
@@ -9,22 +10,23 @@ import { SITE } from "../lib/site";
 >
   <section class="shell grid min-h-[calc(100dvh-4rem)] items-center gap-10 py-20 md:grid-cols-[1fr_0.85fr]">
     <div>
-      <p class="mono text-xs uppercase tracking-[0.35em] text-teal-200">Join</p>
-      <h1 class="mt-5 text-balance text-5xl font-semibold tracking-[-0.06em] text-white md:text-6xl">Come with a build, a question, or a hard-won lesson.</h1>
-      <p class="mt-6 max-w-2xl text-lg leading-8 text-zinc-300">
-        The Slack is where members share demos, compare workflows, ask for implementation feedback, and organize community sessions.
-      </p>
-      <a href={SITE.slackUrl} class="mt-8 inline-block rounded-full bg-teal-300 px-6 py-3 text-sm font-semibold text-zinc-950 transition hover:bg-teal-200 active:translate-y-px">
+      <PageHero
+        kicker="Join"
+        title="Come with a build, a question, or a hard-won lesson."
+        description="The Slack is where members share demos, compare workflows, ask for implementation feedback, and organize community sessions."
+        columns={false}
+      />
+      <a href={SITE.slackUrl} class="focus-ring mt-8 inline-block rounded-full bg-[#ff2d9f] px-6 py-3 text-sm font-semibold text-white shadow-[0_0_34px_rgba(255,45,159,0.38)] transition hover:bg-[#ff5fba] active:translate-y-px">
         Open Slack invite
       </a>
     </div>
     <div class="glass rounded-2xl p-6">
-      <h2 class="text-2xl font-semibold tracking-[-0.04em] text-white">Good first posts</h2>
-      <ul class="mt-5 space-y-4 text-sm leading-6 text-zinc-400">
-        <li><span class="text-teal-200">Build note:</span> What you tried, what worked, what failed.</li>
-        <li><span class="text-teal-200">Tool review:</span> A repo or MCP server worth inspecting.</li>
-        <li><span class="text-teal-200">Workflow question:</span> A concrete agent task you want to improve.</li>
-        <li><span class="text-teal-200">Event idea:</span> A demo or office-hours topic you can host.</li>
+      <h2 class="text-2xl font-bold tracking-[-0.04em] text-white">Good first posts</h2>
+      <ul class="mt-5 space-y-4 text-sm leading-6 text-[#cdb8c4]">
+        <li><span class="text-[#38e8ff]">Build note:</span> What you tried, what worked, what failed.</li>
+        <li><span class="text-[#38e8ff]">Tool review:</span> A repo or MCP server worth inspecting.</li>
+        <li><span class="text-[#38e8ff]">Workflow question:</span> A concrete agent task you want to improve.</li>
+        <li><span class="text-[#38e8ff]">Event idea:</span> A demo or office-hours topic you can host.</li>
       </ul>
     </div>
   </section>

@@ -11,8 +11,9 @@ import { SITE, navItems } from "../lib/site";
       </p>
     </div>
     <div class="grid grid-cols-2 gap-4 text-sm text-[#cdb8c4] sm:grid-cols-3">
-      {navItems.map((item) => <a class="hover:text-white" href={item.href}>{item.label}</a>)}
-      <a class="hover:text-white" href={SITE.slackUrl}>Join Slack</a>
+      {navItems.map((item) => <a class="focus-ring hover:text-white" href={item.href}>{item.label}</a>)}
+      <a class="focus-ring hover:text-white" href={SITE.joinUrl}>Join Slack</a>
+      <a class="focus-ring hover:text-white" href={SITE.githubUrl} target="_blank" rel="noopener noreferrer">GitHub</a>
     </div>
   </div>
 </footer>

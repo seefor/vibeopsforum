@@ -1,0 +1,17 @@
+{
+  "title": "cs249r_book",
+  "repoUrl": "https://github.com/harvard-edge/cs249r_book",
+  "owner": "harvard-edge",
+  "repo": "cs249r_book",
+  "description": "A free ML systems textbook.",
+  "author": "Harvard",
+  "origin": "tool",
+  "category": "research",
+  "tags": [
+    "research",
+    "textbook",
+    "ml-systems"
+  ],
+  "submittedAt": "2026-04-09T10:00:00.000Z",
+  "sharedBy": "James Wise"
+}

@@ -1,11 +1,19 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
 import { SITE, communityContentTypes } from "../lib/site";
 
 const content = (await getCollection("communityContent")).sort(
   (a, b) => b.data.submittedAt.getTime() - a.data.submittedAt.getTime(),
 );
+
+const filterParam = Astro.url.searchParams.get("type") ?? "all";
+const activeFilter = filterParam in communityContentTypes ? filterParam : "all";
+const filteredContent =
+  activeFilter === "all"
+    ? content
+    : content.filter((item) => item.data.type === activeFilter);
 
 const typeStyles = {
   youtube: "border-[#ff2d9f]/35 bg-[#ff2d9f]/10 text-[#ffb8de]",
@@ -19,58 +27,59 @@ const typeStyles = {
   description="YouTube videos, podcasts, and blogs recommended by the VibeOps community for vibecoding, agent operations, A2A, and MCP."
 >
   <section class="shell py-20">
-    <div class="grid gap-8 md:grid-cols-[0.9fr_1.1fr]">
-      <div>
-        <p class="mono text-xs uppercase tracking-[0.35em] text-teal-200">Community content</p>
-        <h1 class="mt-5 text-5xl font-semibold tracking-[-0.06em] text-white md:text-6xl">Videos, shows, and blogs worth your time.</h1>
-      </div>
-      <div class="max-w-2xl">
-        <p class="text-lg leading-8 text-zinc-300">
-          A community-curated feed of YouTube channels, podcast shows, and blogs about building with agents, protocols, and AI-native tooling. Suggest something through a GitHub issue and we'll add it after a quick review.
-        </p>
-        <div class="mt-5 flex flex-wrap gap-4">
-          <a class="accent-link text-sm font-bold" href={SITE.communityContentSubmitUrl}>Suggest content</a>
-          <a class="accent-link text-sm" href={SITE.slackUrl}>Discuss in Slack</a>
-        </div>
-      </div>
+    <PageHero
+      kicker="Community content"
+      title="Videos, shows, and blogs worth your time."
+      description="A community-curated feed of YouTube channels, podcast shows, and blogs about building with agents, protocols, and AI-native tooling. Suggest something through a GitHub issue and we'll add it after a quick review."
+    />
+
+    <div class="mt-10 flex flex-wrap gap-4">
+      <a class="accent-link text-sm font-bold" href={SITE.communityContentSubmitUrl}>Suggest content</a>
+      <a class="accent-link text-sm" href={SITE.slackUrl}>Discuss in Slack</a>
     </div>
 
     <div class="mt-12 flex flex-wrap gap-2" role="tablist" aria-label="Filter community content">
-      {Object.entries(communityContentTypes).map(([key, meta]) => (
-        <button
-          type="button"
-          role="tab"
-          aria-selected={key === "all"}
-          data-content-tab={key}
-          class="content-tab rounded-full border border-white/12 px-4 py-2 text-sm font-semibold text-zinc-300 transition hover:border-white/25 hover:text-white"
-        >
-          {meta.label}
-        </button>
-      ))}
+      {Object.entries(communityContentTypes).map(([key, meta]) => {
+        const isActive = key === activeFilter;
+        const href = key === "all" ? "/community/" : `/community/?type=${key}`;
+        return (
+          <a
+            role="tab"
+            aria-selected={isActive}
+            href={href}
+            data-content-tab={key}
+            class:list={[
+              "content-tab focus-ring rounded-full border px-4 py-2 text-sm font-semibold transition",
+              isActive
+                ? "border-[#ff2d9f]/60 bg-[#ff2d9f]/14 text-white shadow-[0_0_24px_rgba(255,45,159,0.22)]"
+                : "border-white/12 text-zinc-300 hover:border-white/25 hover:text-white",
+            ]}
+          >
+            {meta.label}
+          </a>
+        );
+      })}
     </div>
 
-    <div class="mt-8 grid gap-5 md:grid-cols-2" id="community-content-grid">
-      {content.map((item) => (
-        <article
-          class="content-item glass rounded-2xl p-6"
-          data-content-type={item.data.type}
-        >
+    <div class="mt-8 grid gap-5 md:grid-cols-2" id="community-content-grid" role="tabpanel">
+      {filteredContent.map((item) => (
+        <article class="content-item glass rounded-2xl p-6" data-content-type={item.data.type}>
           <div class="flex flex-wrap items-start justify-between gap-4">
             <div>
-              <p class="mono text-xs uppercase tracking-[0.22em] text-teal-200">{item.data.creator}</p>
-              <h2 class="mt-3 text-2xl font-semibold tracking-[-0.04em] text-white">{item.data.title}</h2>
+              <p class="mono text-xs uppercase tracking-[0.22em] text-[#38e8ff]">{item.data.creator}</p>
+              <h2 class="mt-3 text-2xl font-bold tracking-[-0.04em] text-white">{item.data.title}</h2>
             </div>
             <span class:list={["mono rounded-full border px-3 py-1 text-xs uppercase tracking-[0.16em]", typeStyles[item.data.type]]}>
               {communityContentTypes[item.data.type].kicker}
             </span>
           </div>
-          <p class="mt-4 text-sm leading-6 text-zinc-400">{item.data.description}</p>
+          <p class="mt-4 text-sm leading-6 text-[#cdb8c4]">{item.data.description}</p>
           <div class="mt-5 flex flex-wrap gap-2">
             {item.data.tags.map((tag) => (
               <span class="rounded-full border border-white/10 px-3 py-1 text-xs text-zinc-400">{tag}</span>
             ))}
           </div>
-          <a class="mt-6 inline-block accent-link text-sm" href={item.data.url} target="_blank" rel="noreferrer">
+          <a class="mt-6 inline-block accent-link text-sm" href={item.data.url} target="_blank" rel="noopener noreferrer">
             {item.data.type === "youtube" ? "Watch on YouTube" : item.data.type === "podcast" ? "Listen to show" : "Read blog"}
           </a>
         </article>
@@ -83,25 +92,33 @@ const typeStyles = {
   const tabs = document.querySelectorAll<HTMLElement>("[data-content-tab]");
   const items = document.querySelectorAll<HTMLElement>(".content-item");
 
-  function setActiveTab(activeKey: string) {
+  function setActiveTab(activeKey: string, pushState = true) {
     tabs.forEach((tab) => {
-      const isActive = tab.dataset.contentTab === activeKey;
+      const isActive = tab.getAttribute("data-content-tab") === activeKey;
       tab.setAttribute("aria-selected", String(isActive));
       tab.classList.toggle("border-[#ff2d9f]/60", isActive);
       tab.classList.toggle("bg-[#ff2d9f]/14", isActive);
       tab.classList.toggle("text-white", isActive);
       tab.classList.toggle("shadow-[0_0_24px_rgba(255,45,159,0.22)]", isActive);
+      tab.classList.toggle("border-white/12", !isActive);
+      tab.classList.toggle("text-zinc-300", !isActive);
     });
 
     items.forEach((item) => {
-      const matches = activeKey === "all" || item.dataset.contentType === activeKey;
+      const matches = activeKey === "all" || item.getAttribute("data-content-type") === activeKey;
       item.classList.toggle("hidden", !matches);
     });
+
+    if (pushState) {
+      const nextUrl = activeKey === "all" ? "/community/" : `/community/?type=${activeKey}`;
+      window.history.replaceState({}, "", nextUrl);
+    }
   }
 
   tabs.forEach((tab) => {
-    tab.addEventListener("click", () => setActiveTab(tab.dataset.contentTab ?? "all"));
+    tab.addEventListener("click", (event) => {
+      event.preventDefault();
+      setActiveTab(tab.getAttribute("data-content-tab") ?? "all");
+    });
   });
-
-  setActiveTab("all");
 </script>

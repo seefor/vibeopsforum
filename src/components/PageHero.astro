@@ -1,0 +1,23 @@
+---
+interface Props {
+  kicker: string;
+  title: string;
+  description?: string;
+  columns?: boolean;
+}
+
+const { kicker, title, description, columns = true } = Astro.props;
+---
+
+<div class:list={["max-w-3xl", columns && "grid gap-8 md:grid-cols-[0.9fr_1.1fr] md:max-w-none"]}>
+  <div>
+    <p class="mono text-xs uppercase tracking-[0.35em] text-[#38e8ff]">{kicker}</p>
+    <h1 class="mt-5 text-balance text-5xl font-black uppercase leading-[0.92] tracking-[-0.06em] text-white md:text-6xl">
+      {title}
+    </h1>
+  </div>
+  {description && (
+    <p class="max-w-2xl text-lg leading-8 text-[#cdb8c4] md:self-end">{description}</p>
+  )}
+  <slot />
+</div>

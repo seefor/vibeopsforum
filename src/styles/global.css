@@ -55,6 +55,32 @@ a {
   color: inherit;
 }
 
+.focus-ring:focus-visible,
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent-2);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100%;
+  z-index: 100;
+  border-radius: 9999px;
+  background: var(--accent);
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  transition: top 150ms ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
 ::selection {
   background: rgba(255, 45, 159, 0.38);
 }
@@ -160,6 +186,17 @@ a {
 @media (prefers-reduced-motion: no-preference) {
   .neon-pulse {
     animation: pulse-neon 3.8s ease-in-out infinite;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  body::before {
+    opacity: 0.08;
+  }
+
+  .glass,
+  .bento-card {
+    backdrop-filter: none;
   }
 }
 

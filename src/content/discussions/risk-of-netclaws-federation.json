@@ -1,0 +1,8 @@
+{
+  "title": "\"Risk of NetClaws\" federation model",
+  "summary": "Splitting a monolithic NetClaw into a lean Border node plus focused, kernel-confined members — roughly 15-30x less context per claw, with least-privilege secrets. A migration guide ships in-repo at docs/N2N-RISK.md.",
+  "sourceUrl": "https://github.com/automateyournetwork/netclaw/blob/main/docs/N2N-RISK.md",
+  "sourceLabel": "N2N-RISK migration guide",
+  "tags": ["netclaw", "architecture", "security"],
+  "submittedAt": "2026-06-04T14:00:00Z"
+}

@@ -5,6 +5,8 @@
   "repo": "A2A",
   "description": "An open protocol for communication and interoperability between agentic applications.",
   "author": "Google",
+  "origin": "tool",
+  "category": "frameworks",
   "tags": ["a2a", "protocol", "agents"],
   "submittedAt": "2026-01-20T14:00:00Z",
   "stars": 8400,

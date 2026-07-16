@@ -1,0 +1,16 @@
+{
+  "title": "harness-engineering",
+  "repoUrl": "https://github.com/jrenaldi79/harness-engineering",
+  "owner": "jrenaldi79",
+  "repo": "harness-engineering",
+  "description": "Patterns and tooling for engineering agent harnesses.",
+  "author": "jrenaldi79",
+  "origin": "tool",
+  "category": "frameworks",
+  "tags": [
+    "frameworks",
+    "harness"
+  ],
+  "submittedAt": "2026-03-22T10:00:00.000Z",
+  "sharedBy": "Fred Ferrell"
+}

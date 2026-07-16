@@ -5,6 +5,8 @@
   "repo": "langgraph",
   "description": "A framework for resilient language agents modeled as graphs, with cycles, persistence, and controllability.",
   "author": "LangChain",
+  "origin": "tool",
+  "category": "frameworks",
   "tags": ["agents", "ao", "framework"],
   "submittedAt": "2026-02-01T09:00:00Z",
   "stars": 10300,

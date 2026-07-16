@@ -1,0 +1,8 @@
+{
+  "title": "NetClaw's 3-layer memory system",
+  "summary": "MEMORY.md (long-term) + a new Memory MCP (SQLite + ChromaDB semantic search) + SOUL.md — the agent's first cross-restart persistent memory. Splits durable notes, searchable recall, and identity into distinct layers.",
+  "sourceUrl": "https://github.com/automateyournetwork/netclaw/pull/69",
+  "sourceLabel": "NetClaw PR #69",
+  "tags": ["netclaw", "memory", "mcp"],
+  "submittedAt": "2026-05-20T16:00:00Z"
+}

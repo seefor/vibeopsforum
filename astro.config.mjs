@@ -8,6 +8,7 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://vibeopsforum.com',
+  trailingSlash: 'always',
   integrations: [react(), sitemap()],
 
   vite: {

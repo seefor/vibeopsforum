@@ -1,0 +1,17 @@
+{
+  "title": "agent-governance-toolkit",
+  "repoUrl": "https://github.com/microsoft/agent-governance-toolkit",
+  "owner": "microsoft",
+  "repo": "agent-governance-toolkit",
+  "description": "A toolkit for governing agents in production.",
+  "author": "Microsoft",
+  "origin": "tool",
+  "category": "frameworks",
+  "tags": [
+    "frameworks",
+    "governance",
+    "microsoft"
+  ],
+  "submittedAt": "2026-03-10T10:00:00.000Z",
+  "sharedBy": "John Capobianco"
+}

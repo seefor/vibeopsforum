@@ -1,0 +1,16 @@
+{
+  "title": "netcopilot",
+  "repoUrl": "https://github.com/netcopilot-labs/netcopilot",
+  "owner": "netcopilot-labs",
+  "repo": "netcopilot",
+  "description": "An open-source network copilot — the first OSS project from a member met at AutoCon5.",
+  "author": "Carlos Garcia",
+  "origin": "member",
+  "category": "netclaw",
+  "tags": [
+    "netclaw",
+    "networking",
+    "agent"
+  ],
+  "submittedAt": "2026-01-15T10:00:00.000Z"
+}

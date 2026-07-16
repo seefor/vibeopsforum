@@ -1,0 +1,17 @@
+{
+  "title": "chrome-devtools-mcp",
+  "repoUrl": "https://github.com/ChromeDevTools/chrome-devtools-mcp",
+  "owner": "ChromeDevTools",
+  "repo": "chrome-devtools-mcp",
+  "description": "An MCP server exposing Chrome DevTools to agents.",
+  "author": "Chrome DevTools",
+  "origin": "tool",
+  "category": "mcp",
+  "tags": [
+    "mcp",
+    "chrome",
+    "devtools"
+  ],
+  "submittedAt": "2026-03-25T10:00:00.000Z",
+  "sharedBy": "John Capobianco"
+}

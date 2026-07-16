@@ -1,0 +1,17 @@
+{
+  "title": "DeepSeek-TUI",
+  "repoUrl": "https://github.com/Hmbown/DeepSeek-TUI",
+  "owner": "Hmbown",
+  "repo": "DeepSeek-TUI",
+  "description": "A terminal UI for DeepSeek.",
+  "author": "Hmbown",
+  "origin": "tool",
+  "category": "research",
+  "tags": [
+    "research",
+    "tui",
+    "deepseek"
+  ],
+  "submittedAt": "2026-04-12T10:00:00.000Z",
+  "sharedBy": "Craig Johnson"
+}

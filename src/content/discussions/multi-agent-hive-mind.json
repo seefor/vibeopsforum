@@ -1,0 +1,10 @@
+{
+  "title": "Multi-agent \"hive mind\"",
+  "summary": "An idea for shared memory across agents (Hermes + OpenClaw), tagging database entries by which agent wrote them so a fleet can reason over a common, attributed memory store.",
+  "tags": [
+    "multi-agent",
+    "memory",
+    "architecture"
+  ],
+  "submittedAt": "2026-04-24T10:00:00.000Z"
+}

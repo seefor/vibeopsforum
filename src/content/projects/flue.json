@@ -1,0 +1,18 @@
+{
+  "title": "flue",
+  "repoUrl": "https://github.com/withastro/flue",
+  "owner": "withastro",
+  "repo": "flue",
+  "description": "A TypeScript harness for autonomous agents.",
+  "author": "withastro",
+  "origin": "tool",
+  "category": "frameworks",
+  "tags": [
+    "frameworks",
+    "typescript",
+    "harness"
+  ],
+  "submittedAt": "2026-02-26T10:00:00.000Z",
+  "sharedBy": "James Wise",
+  "language": "TypeScript"
+}

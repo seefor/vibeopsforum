@@ -1,0 +1,17 @@
+{
+  "title": "defenseclaw",
+  "repoUrl": "https://github.com/cisco-ai-defense/defenseclaw",
+  "owner": "cisco-ai-defense",
+  "repo": "defenseclaw",
+  "description": "A security guardrail layer for OpenClaw-style agents.",
+  "author": "Cisco",
+  "origin": "tool",
+  "category": "netclaw",
+  "tags": [
+    "netclaw",
+    "security",
+    "guardrails"
+  ],
+  "submittedAt": "2026-02-20T10:00:00.000Z",
+  "sharedBy": "John Capobianco"
+}

@@ -5,8 +5,9 @@ interface Props {
   title: string;
   description: string;
   ogType?: string;
+  ogImage?: string;
   canonicalUrl?: string;
-  structuredData?: object;
+  structuredData?: object | object[];
   noindex?: boolean;
 }
 
@@ -14,12 +15,19 @@ const {
   title,
   description,
   ogType = "website",
+  ogImage = SITE.ogImage,
   canonicalUrl = new URL(Astro.url.pathname, Astro.site).toString(),
   structuredData,
   noindex = false,
 } = Astro.props;
 
 const fullTitle = title.includes(SITE.name) ? title : `${title} | ${SITE.name}`;
+const imageUrl = new URL(ogImage, Astro.site).toString();
+const structuredDataItems = structuredData
+  ? Array.isArray(structuredData)
+    ? structuredData
+    : [structuredData]
+  : [];
 ---
 
 <meta charset="utf-8" />
@@ -34,10 +42,12 @@ const fullTitle = title.includes(SITE.name) ? title : `${title} | ${SITE.name}`;
 <meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:site_name" content={SITE.name} />
-<meta name="twitter:card" content="summary" />
+<meta property="og:image" content={imageUrl} />
+<meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content={fullTitle} />
 <meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={imageUrl} />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-{structuredData && (
-  <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
-)}
+{structuredDataItems.map((item) => (
+  <script is:inline type="application/ld+json" set:html={JSON.stringify(item)} />
+))}

@@ -1,0 +1,17 @@
+{
+  "title": "worktrunk",
+  "repoUrl": "https://github.com/max-sixty/worktrunk",
+  "owner": "max-sixty",
+  "repo": "worktrunk",
+  "description": "A Git worktree abstraction for agent workflows.",
+  "author": "max-sixty",
+  "origin": "tool",
+  "category": "frameworks",
+  "tags": [
+    "frameworks",
+    "git",
+    "worktree"
+  ],
+  "submittedAt": "2026-03-19T10:00:00.000Z",
+  "sharedBy": "Mischa Diehm"
+}

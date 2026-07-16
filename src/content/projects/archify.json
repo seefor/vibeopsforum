@@ -1,0 +1,16 @@
+{
+  "title": "archify",
+  "repoUrl": "https://github.com/tt-a1i/archify",
+  "owner": "tt-a1i",
+  "repo": "archify",
+  "description": "A tooling project shared with the community.",
+  "author": "tt-a1i",
+  "origin": "tool",
+  "category": "community",
+  "tags": [
+    "community",
+    "tooling"
+  ],
+  "submittedAt": "2026-04-15T10:00:00.000Z",
+  "sharedBy": "John Capobianco"
+}

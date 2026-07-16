@@ -1,0 +1,67 @@
+name: Event submission
+description: Suggest a community session, workshop, or office hours
+title: "[Event] "
+labels:
+  - event
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Suggest an event for the VibeOps Forum calendar. After a quick review, we'll add it to the site and share it in Slack.
+
+  - type: input
+    id: title
+    attributes:
+      label: Event title
+      placeholder: MCP Tool Server Hackathon
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Event description
+      description: What will happen, who it's for, and what people should bring.
+    validations:
+      required: true
+
+  - type: input
+    id: date
+    attributes:
+      label: Proposed date and time
+      description: Include timezone, e.g. Aug 16, 2026 3:00 PM CT.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: format
+    attributes:
+      label: Format
+      options:
+        - Slack Huddle
+        - Zoom
+        - Google Meet
+        - Virtual
+        - In person
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: Event link
+      description: Optional. Registration or meeting link if you have one.
+
+  - type: input
+    id: tags
+    attributes:
+      label: Tags
+      description: Comma-separated topics such as vibecoding, mcp, a2a, agent-ops.
+      placeholder: mcp, hackathon
+
+  - type: input
+    id: submitted-by
+    attributes:
+      label: Your name or handle
+    validations:
+      required: true

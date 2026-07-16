@@ -1,0 +1,16 @@
+{
+  "title": "Apple-BaseFM",
+  "repoUrl": "https://github.com/zombat/Apple-BaseFM",
+  "owner": "zombat",
+  "repo": "Apple-BaseFM",
+  "description": "Local LLM experiments running foundation models on Mac.",
+  "author": "Raymond Rizzo",
+  "origin": "member",
+  "category": "research",
+  "tags": [
+    "research",
+    "local-llm",
+    "apple"
+  ],
+  "submittedAt": "2026-02-11T10:00:00.000Z"
+}

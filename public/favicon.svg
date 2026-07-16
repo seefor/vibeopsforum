@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="VibeOps Forum">
-  <rect width="64" height="64" rx="14" fill="#0b0f14"/>
-  <path d="M15 17h8l9 27 9-27h8L36 51h-8L15 17Z" fill="#2dd4bf"/>
-  <path d="M42 39h7v7h-7z" fill="#f4f4f5"/>
+  <rect width="64" height="64" rx="14" fill="#08060b"/>
+  <rect x="10" y="10" width="44" height="44" rx="10" fill="#ff2d9f" fill-opacity="0.18" stroke="#ff2d9f" stroke-width="1.5"/>
+  <text x="32" y="39" text-anchor="middle" font-family="system-ui, sans-serif" font-size="18" font-weight="700" fill="#fff7fb">VO</text>
 </svg>

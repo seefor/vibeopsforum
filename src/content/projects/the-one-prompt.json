@@ -1,0 +1,16 @@
+{
+  "title": "the-one-prompt",
+  "repoUrl": "https://github.com/seanerama/the-one-prompt",
+  "owner": "seanerama",
+  "repo": "the-one-prompt",
+  "description": "A multi-agent product-review prompt.",
+  "author": "Sean Mahoney",
+  "origin": "member",
+  "category": "frameworks",
+  "tags": [
+    "frameworks",
+    "prompt",
+    "multi-agent"
+  ],
+  "submittedAt": "2026-01-30T10:00:00.000Z"
+}

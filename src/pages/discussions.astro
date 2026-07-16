@@ -1,0 +1,50 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageHero from "../components/PageHero.astro";
+import { SITE, formatDate } from "../lib/site";
+
+const discussions = (await getCollection("discussions")).sort(
+  (a, b) => b.data.submittedAt.getTime() - a.data.submittedAt.getTime(),
+);
+---
+
+<BaseLayout
+  title="From the Forum"
+  description="Ideas, patterns, and discussions worth featuring from the VibeOps community — agent memory systems, federation models, tokenization research, and more."
+>
+  <section class="shell py-20">
+    <PageHero
+      kicker="Discussions"
+      title="Ideas worth pulling out of the thread."
+      description="Short write-ups of the conversations, patterns, and experiments the community keeps coming back to. Each links back to the source thread or repo where there is one."
+    />
+
+    <div class="mt-10 flex flex-wrap gap-4">
+      <a class="accent-link text-sm font-bold" href={SITE.slackUrl}>Join the conversation</a>
+      <a class="accent-link text-sm" href={SITE.githubUrl}>Suggest a topic on GitHub</a>
+    </div>
+
+    <div class="mt-14 grid gap-5 md:grid-cols-2">
+      {discussions.map((item) => (
+        <article class="glass rounded-2xl p-6">
+          <div class="flex flex-wrap items-start justify-between gap-4">
+            <h2 class="text-2xl font-bold tracking-[-0.04em] text-white">{item.data.title}</h2>
+            <span class="mono shrink-0 text-xs uppercase tracking-[0.16em] text-zinc-500">{formatDate(item.data.submittedAt)}</span>
+          </div>
+          <p class="mt-4 text-sm leading-6 text-[#cdb8c4]">{item.data.summary}</p>
+          <div class="mt-5 flex flex-wrap gap-2">
+            {item.data.tags.map((tag) => (
+              <span class="rounded-full border border-white/10 px-3 py-1 text-xs text-zinc-400">{tag}</span>
+            ))}
+          </div>
+          {item.data.sourceUrl && (
+            <a class="mt-6 inline-block accent-link text-sm" href={item.data.sourceUrl} target="_blank" rel="noopener noreferrer">
+              {item.data.sourceLabel ?? "View source"}
+            </a>
+          )}
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

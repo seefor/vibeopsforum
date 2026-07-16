@@ -1,0 +1,15 @@
+{
+  "title": "vibeops-site",
+  "repoUrl": "https://github.com/vibeopsforum/vibeops-site",
+  "owner": "vibeopsforum",
+  "repo": "vibeops-site",
+  "description": "An earlier Vercel-based skeleton for this site — worth comparing against the current direction.",
+  "author": "Nicholas Calcutti",
+  "origin": "member",
+  "category": "community",
+  "tags": [
+    "community",
+    "site"
+  ],
+  "submittedAt": "2026-02-17T10:00:00.000Z"
+}

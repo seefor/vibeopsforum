@@ -1,0 +1,16 @@
+{
+  "title": "agentgateway-demos",
+  "repoUrl": "https://github.com/sebbycorp/agentgateway-demos",
+  "owner": "sebbycorp",
+  "repo": "agentgateway-demos",
+  "description": "Demos for the agentgateway project.",
+  "author": "Sebastian Maniak",
+  "origin": "member",
+  "category": "frameworks",
+  "tags": [
+    "frameworks",
+    "gateway",
+    "demos"
+  ],
+  "submittedAt": "2026-01-21T10:00:00.000Z"
+}

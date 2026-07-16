@@ -1,0 +1,17 @@
+{
+  "title": "Hyper-Extract",
+  "repoUrl": "https://github.com/yifanfeng97/Hyper-Extract",
+  "owner": "yifanfeng97",
+  "repo": "Hyper-Extract",
+  "description": "RAG tooling for extraction.",
+  "author": "yifanfeng97",
+  "origin": "tool",
+  "category": "mcp",
+  "tags": [
+    "mcp",
+    "rag",
+    "extraction"
+  ],
+  "submittedAt": "2026-03-31T10:00:00.000Z",
+  "sharedBy": "James Wise"
+}

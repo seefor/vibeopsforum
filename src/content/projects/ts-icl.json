@@ -1,0 +1,13 @@
+{
+  "title": "ts-icl",
+  "repoUrl": "https://github.com/EDF-Lab/ts-icl",
+  "owner": "EDF-Lab",
+  "repo": "ts-icl",
+  "description": "A time-series foundation model exploring in-context learning for forecasting.",
+  "author": "EDF-Lab",
+  "origin": "tool",
+  "sharedBy": "James Wise",
+  "category": "research",
+  "tags": ["research", "time-series", "foundation-model"],
+  "submittedAt": "2026-04-14T11:00:00Z"
+}

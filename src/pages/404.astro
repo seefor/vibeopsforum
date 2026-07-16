@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { navItems } from "../lib/site";
+---
+
+<BaseLayout
+  title="Page Not Found"
+  description="The page you requested does not exist on VibeOps Forum."
+  noindex={true}
+>
+  <section class="shell flex min-h-[calc(100dvh-4rem)] flex-col items-start justify-center py-20">
+    <p class="mono text-xs uppercase tracking-[0.35em] text-[#38e8ff]">404</p>
+    <h1 class="mt-5 max-w-3xl text-balance text-5xl font-black uppercase leading-[0.92] tracking-[-0.06em] text-white md:text-7xl">
+      This room does not exist.
+    </h1>
+    <p class="mt-6 max-w-xl text-lg leading-8 text-[#cdb8c4]">
+      The link may be broken or the page may have moved. Head back home or jump into one of the main sections.
+    </p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a href="/" class="focus-ring rounded-full bg-[#ff2d9f] px-6 py-3 text-sm font-bold text-white transition hover:bg-[#ff5fba]">
+        Back home
+      </a>
+      <a href="/join/" class="focus-ring rounded-full border border-white/18 px-6 py-3 text-sm font-bold text-white transition hover:border-[#38e8ff]/70">
+        Join Slack
+      </a>
+    </div>
+    <ul class="mt-10 grid gap-2 text-sm text-[#cdb8c4] sm:grid-cols-2">
+      {navItems.map((item) => (
+        <li><a class="focus-ring accent-link" href={item.href}>{item.label}</a></li>
+      ))}
+    </ul>
+  </section>
+</BaseLayout>

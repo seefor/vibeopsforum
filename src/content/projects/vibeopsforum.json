@@ -1,0 +1,12 @@
+{
+  "title": "vibeopsforum",
+  "repoUrl": "https://github.com/seefor/vibeopsforum",
+  "owner": "seefor",
+  "repo": "vibeopsforum",
+  "description": "This site's own repo — built with Astro and hosted on Cloudflare Pages. PRs welcome.",
+  "author": "Sif Baksh",
+  "origin": "member",
+  "category": "community",
+  "tags": ["community", "site", "astro"],
+  "submittedAt": "2026-05-01T10:00:00Z"
+}

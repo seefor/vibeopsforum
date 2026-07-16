@@ -1,0 +1,14 @@
+{
+  "title": "NetClaw",
+  "repoUrl": "https://github.com/automateyournetwork/netclaw",
+  "owner": "automateyournetwork",
+  "repo": "netclaw",
+  "description": "Flagship network-operations AI agent — the anchor project for much of the community's tooling and experiments.",
+  "author": "John Capobianco",
+  "origin": "member",
+  "category": "netclaw",
+  "tags": ["netclaw", "networking", "agent"],
+  "submittedAt": "2026-03-10T15:00:00Z",
+  "stars": 500,
+  "language": "Python"
+}

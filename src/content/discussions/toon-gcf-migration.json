@@ -1,0 +1,12 @@
+{
+  "title": "TOON → GCF token-optimization migration",
+  "summary": "A move from TOON to GCF for token optimization, alongside independent research from Dayna (Blackwell Systems) on why GCF beats JSON for LLM tokenization at scale — backed by a public paper and 23 eval scripts.",
+  "sourceUrl": "https://github.com/blackwell-systems/merge-barriers",
+  "sourceLabel": "Blackwell Systems research",
+  "tags": [
+    "tokenization",
+    "research",
+    "optimization"
+  ],
+  "submittedAt": "2026-04-21T10:00:00.000Z"
+}

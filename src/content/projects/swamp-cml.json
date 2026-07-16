@@ -1,0 +1,16 @@
+{
+  "title": "swamp-cml",
+  "repoUrl": "https://github.com/calcuttin/swamp-cml",
+  "owner": "calcuttin",
+  "repo": "swamp-cml",
+  "description": "A Cisco Modeling Labs (CML) extension for Swamp.",
+  "author": "Nicholas Calcutti",
+  "origin": "member",
+  "category": "netclaw",
+  "tags": [
+    "netclaw",
+    "cml",
+    "networking"
+  ],
+  "submittedAt": "2026-01-09T10:00:00.000Z"
+}

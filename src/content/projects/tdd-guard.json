@@ -1,0 +1,17 @@
+{
+  "title": "tdd-guard",
+  "repoUrl": "https://github.com/nizos/tdd-guard",
+  "owner": "nizos",
+  "repo": "tdd-guard",
+  "description": "Forces a test-first workflow for coding agents.",
+  "author": "nizos",
+  "origin": "tool",
+  "category": "frameworks",
+  "tags": [
+    "frameworks",
+    "tdd",
+    "testing"
+  ],
+  "submittedAt": "2026-03-16T10:00:00.000Z",
+  "sharedBy": "Jay Stewart"
+}

@@ -1,0 +1,16 @@
+{
+  "title": "NAF_AC5",
+  "repoUrl": "https://github.com/automateyournetwork/NAF_AC5",
+  "owner": "automateyournetwork",
+  "repo": "NAF_AC5",
+  "description": "AutoCon5 workshop material from the Automate Your Network / NetClaw project.",
+  "author": "John Capobianco",
+  "origin": "member",
+  "category": "networking",
+  "tags": [
+    "networking",
+    "workshop",
+    "netclaw"
+  ],
+  "submittedAt": "2026-02-08T10:00:00.000Z"
+}

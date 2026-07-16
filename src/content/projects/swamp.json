@@ -1,0 +1,17 @@
+{
+  "title": "swamp",
+  "repoUrl": "https://github.com/systeminit/swamp",
+  "owner": "systeminit",
+  "repo": "swamp",
+  "description": "An operational/automation agent project from System Initiative.",
+  "author": "Adam Jacob",
+  "origin": "tool",
+  "category": "frameworks",
+  "tags": [
+    "frameworks",
+    "automation",
+    "agent"
+  ],
+  "submittedAt": "2026-03-01T10:00:00.000Z",
+  "sharedBy": "Nicholas Calcutti"
+}

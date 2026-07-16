@@ -1,0 +1,17 @@
+{
+  "title": "mcp-canada",
+  "repoUrl": "https://github.com/ReyemTech/mcp-canada",
+  "owner": "ReyemTech",
+  "repo": "mcp-canada",
+  "description": "An MCP server for Canadian government data.",
+  "author": "ReyemTech",
+  "origin": "tool",
+  "category": "mcp",
+  "tags": [
+    "mcp",
+    "canada",
+    "data"
+  ],
+  "submittedAt": "2026-03-28T10:00:00.000Z",
+  "sharedBy": "John Capobianco"
+}

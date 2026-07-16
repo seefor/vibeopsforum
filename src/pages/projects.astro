@@ -1,52 +1,133 @@
 ---
 import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { SITE } from "../lib/site";
+import PageHero from "../components/PageHero.astro";
+import { SITE, projectCategories, type ProjectCategory } from "../lib/site";
 
 const projects = (await getCollection("projects")).sort(
   (a, b) => b.data.submittedAt.getTime() - a.data.submittedAt.getTime(),
+);
+
+// Group a set of projects into the ordered categories from site.ts, dropping
+// any category that has no entries.
+function groupByCategory(items: CollectionEntry<"projects">[]) {
+  return (Object.keys(projectCategories) as ProjectCategory[])
+    .map((category) => ({
+      category,
+      meta: projectCategories[category],
+      items: items.filter((project) => project.data.category === category),
+    }))
+    .filter((group) => group.items.length > 0);
+}
+
+const memberGroups = groupByCategory(
+  projects.filter((project) => project.data.origin === "member"),
+);
+const toolGroups = groupByCategory(
+  projects.filter((project) => project.data.origin === "tool"),
 );
 ---
 
 <BaseLayout
   title="AI Builder Projects"
-  description="Browse community projects and tools for vibecoding, agent operations, A2A protocol, and MCP integrations."
+  description="Browse community-built projects and the third-party tools builders in the VibeOps community actually use — across vibecoding, agent operations, A2A, and MCP."
 >
   <section class="shell py-20">
-    <div class="grid gap-8 md:grid-cols-[0.9fr_1.1fr]">
-      <div>
-        <p class="mono text-xs uppercase tracking-[0.35em] text-teal-200">Projects</p>
-        <h1 class="mt-5 text-5xl font-semibold tracking-[-0.06em] text-white md:text-6xl">A shelf for tools builders actually inspect.</h1>
-      </div>
+    <PageHero
+      kicker="Projects"
+      title="A shelf for tools builders actually inspect."
+      description="Two shelves, really: repos built by community members, and the outside tools members reach for. Submit a public GitHub repo through a GitHub issue with the link, a short description, and what kind of feedback you want."
+    />
+
+    <div class="mt-10 flex flex-wrap gap-4">
+      <a class="accent-link text-sm font-bold" href={SITE.projectShelfSubmitUrl}>Submit a repo</a>
+      <a class="accent-link text-sm" href={SITE.slackUrl}>Discuss in Slack</a>
+    </div>
+
+    <div class="mt-8 flex flex-wrap gap-3 text-sm">
+      <a class="rounded-full border border-white/12 px-4 py-2 text-zinc-300 transition hover:border-white/25 hover:text-white" href="#member-projects">Community projects</a>
+      <a class="rounded-full border border-white/12 px-4 py-2 text-zinc-300 transition hover:border-white/25 hover:text-white" href="#community-tools">Tools used in the community</a>
+    </div>
+
+    <div id="member-projects" class="mt-16 scroll-mt-24">
       <div class="max-w-2xl">
-        <p class="text-lg leading-8 text-zinc-300">
-          The project shelf is community-curated. Submit a public GitHub repo through a GitHub issue with the link, a short description, and what kind of feedback you want. After a quick review, it gets listed here.
-        </p>
-        <div class="mt-5 flex flex-wrap gap-4">
-          <a class="accent-link text-sm font-bold" href={SITE.projectShelfSubmitUrl}>Submit a repo</a>
-          <a class="accent-link text-sm" href={SITE.slackUrl}>Discuss in Slack</a>
-        </div>
+        <p class="mono text-xs uppercase tracking-[0.22em] text-[#38e8ff]">Built by the community</p>
+        <h2 class="mt-3 text-3xl font-bold tracking-[-0.04em] text-white">Community projects</h2>
+        <p class="mt-3 text-sm leading-6 text-zinc-400">Repos owned by VibeOps members — their own agents, labs, and experiments. Inspect them, star them, or open an issue with feedback.</p>
+      </div>
+
+      <div class="mt-10 space-y-14">
+        {memberGroups.map((group) => (
+          <section aria-labelledby={`member-${group.category}`}>
+            <div class="max-w-2xl">
+              <h3 id={`member-${group.category}`} class="mono text-xs font-bold uppercase tracking-[0.22em] text-[#ff2d9f]">{group.meta.label}</h3>
+              <p class="mt-2 text-sm leading-6 text-zinc-400">{group.meta.description}</p>
+            </div>
+            <div class="mt-6 grid gap-5 lg:grid-cols-2">
+              {group.items.map((project) => (
+                <article class="glass rounded-2xl p-6">
+                  <div class="flex flex-wrap items-start justify-between gap-4">
+                    <div>
+                      <p class="mono text-xs uppercase tracking-[0.22em] text-[#38e8ff]">{project.data.owner}/{project.data.repo}</p>
+                      <h4 class="mt-3 text-2xl font-bold tracking-[-0.04em] text-white">{project.data.title}</h4>
+                    </div>
+                    {project.data.stars && <span class="mono rounded-full border border-white/10 px-3 py-1 text-xs text-zinc-400">{project.data.stars.toLocaleString()} stars</span>}
+                  </div>
+                  <p class="mt-4 text-sm leading-6 text-[#cdb8c4]">{project.data.description}</p>
+                  <p class="mt-3 text-xs text-zinc-500">By {project.data.author}</p>
+                  <div class="mt-5 flex flex-wrap gap-2">
+                    {project.data.language && <span class="rounded-full bg-[#38e8ff]/12 px-3 py-1 text-xs text-[#b9f7ff]">{project.data.language}</span>}
+                    {project.data.tags.map((tag) => <span class="rounded-full border border-white/10 px-3 py-1 text-xs text-zinc-400">{tag}</span>)}
+                  </div>
+                  <a class="mt-6 inline-block accent-link text-sm" href={project.data.repoUrl} target="_blank" rel="noopener noreferrer">Open repository</a>
+                </article>
+              ))}
+            </div>
+          </section>
+        ))}
       </div>
     </div>
 
-    <div class="mt-14 grid gap-5 lg:grid-cols-2">
-      {projects.map((project) => (
-        <article class="glass rounded-2xl p-6">
-          <div class="flex flex-wrap items-start justify-between gap-4">
-            <div>
-              <p class="mono text-xs uppercase tracking-[0.22em] text-teal-200">{project.data.owner}/{project.data.repo}</p>
-              <h2 class="mt-3 text-2xl font-semibold tracking-[-0.04em] text-white">{project.data.title}</h2>
+    <div id="community-tools" class="mt-24 scroll-mt-24">
+      <div class="max-w-2xl">
+        <p class="mono text-xs uppercase tracking-[0.22em] text-[#f6ff6a]">Recommended by members</p>
+        <h2 class="mt-3 text-3xl font-bold tracking-[-0.04em] text-white">Tools used in the community</h2>
+        <p class="mt-3 text-sm leading-6 text-zinc-400">Third-party projects members don't own but rely on and vouch for. If someone shared it as "here's a tool I use," it lands here.</p>
+      </div>
+
+      <div class="mt-10 space-y-14">
+        {toolGroups.map((group) => (
+          <section aria-labelledby={`tool-${group.category}`}>
+            <div class="max-w-2xl">
+              <h3 id={`tool-${group.category}`} class="mono text-xs font-bold uppercase tracking-[0.22em] text-[#ff2d9f]">{group.meta.label}</h3>
+              <p class="mt-2 text-sm leading-6 text-zinc-400">{group.meta.description}</p>
             </div>
-            {project.data.stars && <span class="mono rounded-full border border-white/10 px-3 py-1 text-xs text-zinc-400">{project.data.stars.toLocaleString()} stars</span>}
-          </div>
-          <p class="mt-4 text-sm leading-6 text-zinc-400">{project.data.description}</p>
-          <div class="mt-5 flex flex-wrap gap-2">
-            {project.data.language && <span class="rounded-full bg-teal-300/10 px-3 py-1 text-xs text-teal-100">{project.data.language}</span>}
-            {project.data.tags.map((tag) => <span class="rounded-full border border-white/10 px-3 py-1 text-xs text-zinc-400">{tag}</span>)}
-          </div>
-          <a class="mt-6 inline-block accent-link text-sm" href={project.data.repoUrl} target="_blank" rel="noreferrer">Open repository</a>
-        </article>
-      ))}
+            <div class="mt-6 grid gap-5 lg:grid-cols-2">
+              {group.items.map((project) => (
+                <article class="glass rounded-2xl p-6">
+                  <div class="flex flex-wrap items-start justify-between gap-4">
+                    <div>
+                      <p class="mono text-xs uppercase tracking-[0.22em] text-[#38e8ff]">{project.data.owner}/{project.data.repo}</p>
+                      <h4 class="mt-3 text-2xl font-bold tracking-[-0.04em] text-white">{project.data.title}</h4>
+                    </div>
+                    {project.data.stars && <span class="mono rounded-full border border-white/10 px-3 py-1 text-xs text-zinc-400">{project.data.stars.toLocaleString()} stars</span>}
+                  </div>
+                  <p class="mt-4 text-sm leading-6 text-[#cdb8c4]">{project.data.description}</p>
+                  <p class="mt-3 text-xs text-zinc-500">
+                    By {project.data.author}{project.data.sharedBy && <span> · Shared by {project.data.sharedBy}</span>}
+                  </p>
+                  <div class="mt-5 flex flex-wrap gap-2">
+                    {project.data.language && <span class="rounded-full bg-[#38e8ff]/12 px-3 py-1 text-xs text-[#b9f7ff]">{project.data.language}</span>}
+                    {project.data.tags.map((tag) => <span class="rounded-full border border-white/10 px-3 py-1 text-xs text-zinc-400">{tag}</span>)}
+                  </div>
+                  <a class="mt-6 inline-block accent-link text-sm" href={project.data.repoUrl} target="_blank" rel="noopener noreferrer">Open repository</a>
+                </article>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
     </div>
   </section>
 </BaseLayout>

@@ -2,9 +2,14 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { formatDate, SITE } from "../lib/site";
+import { getUpcomingEvents, eventToJsonLd } from "../lib/events";
 
 const events = (await getCollection("events")).sort(
   (a, b) => a.data.date.getTime() - b.data.date.getTime(),
+);
+
+const structuredData = getUpcomingEvents(events).map((event) =>
+  eventToJsonLd(event, SITE.url),
 );
 
 function toUtcStamp(date: Date) {
@@ -63,6 +68,7 @@ function getAppleCalendarUrl(event: (typeof events)[number]) {
 <BaseLayout
   title="AI Builder Events"
   description="Upcoming VibeOps Forum events for vibecoding, agent operations, A2A protocol, and MCP tooling."
+  structuredData={structuredData}
 >
   <section class="shell py-20">
     <div class="max-w-3xl">
@@ -77,11 +83,19 @@ function getAppleCalendarUrl(event: (typeof events)[number]) {
       </div>
     </div>
 
-    <div class="mt-12 divide-y divide-white/10 border-y border-white/10">
+    {events.length === 0 && (
+      <div class="mt-12 rounded-2xl border border-dashed border-white/15 bg-black/20 p-6">
+        <p class="text-sm leading-6 text-zinc-400">
+          No events on the calendar right now. New sessions get scheduled regularly — <a class="accent-link" href={SITE.slackUrl}>join Slack</a> to hear about the next one, or spin one up from the <a class="accent-link" href="/meeting-registration/">meetings admin</a>.
+        </p>
+      </div>
+    )}
+
+    <div class="mt-12 divide-y divide-white/10 border-y border-white/10" class:list={[events.length === 0 && "hidden"]}>
       {events.map((event) => (
         <article class="grid gap-5 py-7 md:grid-cols-[12rem_1fr_12rem] md:items-start">
           <div>
-            <time class="mono text-sm text-teal-200">{formatDate(event.data.date)}</time>
+            <time class="mono text-sm text-teal-200" datetime={event.data.date.toISOString()}>{formatDate(event.data.date)}</time>
             <p class="mt-2 text-xs uppercase tracking-[0.18em] text-zinc-500">{event.data.timezone}</p>
           </div>
           <div>
@@ -93,9 +107,7 @@ function getAppleCalendarUrl(event: (typeof events)[number]) {
             </div>
           </div>
           <div class="flex flex-wrap gap-2 md:justify-end">
-            <a class="rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white hover:border-teal-200/60" href={event.data.url || "/meeting-registration/"}>
-              {event.data.url ? "Register" : "Register"}
-            </a>
+            <a class="rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white hover:border-teal-200/60" href={event.data.url || "/meeting-registration/"}>Register</a>
             <a class="rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white hover:border-[#38e8ff]" href={getGoogleCalendarUrl(event)} target="_blank" rel="noreferrer">Google Cal</a>
             <a class="rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-white hover:border-[#f6ff6a]" href={getAppleCalendarUrl(event)} download={`${event.id}.ics`}>Apple Cal</a>
           </div>

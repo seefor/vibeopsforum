@@ -1,0 +1,12 @@
+{
+  "title": "SpatiumDDI",
+  "repoUrl": "https://github.com/spatiumddi/spatiumddi",
+  "owner": "spatiumddi",
+  "repo": "spatiumddi",
+  "description": "Open-source DNS/DHCP/IPAM (DDI) replacement — actively looking for testers.",
+  "author": "Tristan Rhodes",
+  "origin": "member",
+  "category": "networking",
+  "tags": ["networking", "ddi", "dns"],
+  "submittedAt": "2026-03-22T09:00:00Z"
+}
